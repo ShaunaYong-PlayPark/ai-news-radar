@@ -1,0 +1,2639 @@
+{
+  "exported_at": "2026-07-31T07:56:32.264Z",
+  "source_file": "data/training/trend_review_training.json",
+  "source_generated_at": "2026-07-31T02:32:37.436393+00:00",
+  "total_training_items": 200,
+  "total_label_records": 200,
+  "labels": [
+    {
+      "article_id": "comicbook_gaming::https://comicbook.com/gaming/news/ex-playstation-boss-reveals-reason-behind-japan-studios-shutdown/",
+      "label": "exclude",
+      "reasons": [
+        "junk",
+        "too_speculative"
+      ],
+      "notes": "",
+      "title": "Ex-PlayStation Boss Reveals Reason Behind Japan Studio’s Shutdown",
+      "source": "ComicBook Gaming",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 218,
+      "updated_at": "2026-07-31T03:18:41.599Z"
+    },
+    {
+      "article_id": "gamesindustry_biz::https://www.gamesindustry.biz/new-zealands-success-is-being-built-by-ambitious-studios-of-all-sizes-combined-revenue-of-studios-supported-by-rebate-grows-17-to-829m",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "\"New Zealand's success is being built by ambitious studios of all sizes\" – Combined revenue of studios supported by rebate grows 17% to $829m",
+      "source": "GamesIndustry.biz",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 218,
+      "updated_at": "2026-07-31T03:51:51.738Z"
+    },
+    {
+      "article_id": "gamesindustry_biz::https://www.gamesindustry.biz/supercell-launches-equity-free-grants-program-for-african-game-studios",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Supercell launches equity-free grants program for Africa-based game studios",
+      "source": "GamesIndustry.biz",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 218,
+      "updated_at": "2026-07-31T03:51:38.344Z"
+    },
+    {
+      "article_id": "gamespot_asia::https://www.gamespot.com/articles/after-layoffs-new-elder-scrolls-online-content-is-delayed-but-still-coming/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "After Layoffs, New Elder Scrolls Online Content Is Delayed But Still Coming",
+      "source": "GameSpot Asia",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 194,
+      "updated_at": "2026-07-31T03:51:35.712Z"
+    },
+    {
+      "article_id": "gamingpinas::https://gamingpinas.com/pgdx-launches-hatch-for-filipino-game-developers/?utm_source=rss&utm_medium=rss&utm_campaign=pgdx-launches-hatch-for-filipino-game-developers",
+      "label": "watch",
+      "reasons": [
+        "sea_relevance"
+      ],
+      "notes": "More for PH ecosystem watch, not current SG report",
+      "title": "PGDX Launches HATCH for Filipino Game Developers",
+      "source": "Gaming Pinas",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 194,
+      "updated_at": "2026-07-31T07:56:28.025Z"
+    },
+    {
+      "article_id": "gamesindustry_biz::https://www.gamesindustry.biz/layoffs-begin-at-ubisoft-barcelona-following-assassins-creed-black-flag-resynced-launch",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Layoffs begin at Ubisoft Barcelona following Assassin's Creed Black Flag Resynced launch",
+      "source": "GamesIndustry.biz",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 194,
+      "updated_at": "2026-07-31T03:51:28.986Z"
+    },
+    {
+      "article_id": "pcgamer::https://www.pcgamer.com/gaming-industry/xbox-revenues-dipped-usd1-7-billion-last-year-but-asha-sharma-predicts-a-return-to-growth-by-mid-2027/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Xbox revenues dipped $1.7 billion last year, but Asha Sharma predicts a 'return to growth' by mid-2027",
+      "source": "PC Gamer",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 189,
+      "updated_at": "2026-07-31T03:59:15.288Z"
+    },
+    {
+      "article_id": "gamesindustry_biz::https://www.gamesindustry.biz/xbox-revenue-plunges-17bn-with-hardware-dropping-29-yoy",
+      "label": "watch",
+      "reasons": [
+        "market_signal"
+      ],
+      "notes": "",
+      "title": "Xbox revenue plunges $1.7bn, with hardware dropping 29% YoY",
+      "source": "GamesIndustry.biz",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 189,
+      "updated_at": "2026-07-31T02:43:12.858Z"
+    },
+    {
+      "article_id": "gamesindustry_biz::https://www.gamesindustry.biz/zenimax-online-studios-leadership-impacted-by-latest-xbox-layoffs",
+      "label": "watch",
+      "reasons": [
+        "market_signal"
+      ],
+      "notes": "",
+      "title": "ZeniMax Online Studios leadership impacted by latest Xbox layoffs",
+      "source": "GamesIndustry.biz",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 189,
+      "updated_at": "2026-07-31T02:44:33.092Z"
+    },
+    {
+      "article_id": "fourgamers_th::https://www.4gamers.co.th/news/detail/15732/dream-voice-studio-game-list-how-to-get-full-game-thai-voice-with-condition-just-follow-page-or-endorse-on-nexusmods",
+      "label": "exclude",
+      "reasons": [
+        "junk",
+        "wrong_category",
+        "too_consumer"
+      ],
+      "notes": "",
+      "title": "Dream Voice Studio เผยรายชื่อเกมทั้งหมดที่มีแผนจะสร้าง พร้อมประกาศเงื่อนไขการพัฒนา Mod เสียงพากย์ไทยตัวเต็มของ Hogwars Legacy และ The Last of Us Part II Remastered",
+      "source": "4Gamers Thailand",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 184,
+      "updated_at": "2026-07-31T02:52:28.490Z"
+    },
+    {
+      "article_id": "dotesports::https://dotesports.com/overwatch/guides/overwatch-ewc-2026-schedule-results-standings",
+      "label": "exclude",
+      "reasons": [
+        "too_consumer",
+        "junk"
+      ],
+      "notes": "",
+      "title": "Overwatch Midseason Championship at Esports World Cup 2026: Schedule, results, standings, teams, how to watch",
+      "source": "Dot Esports",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 178,
+      "updated_at": "2026-07-31T03:51:16.840Z"
+    },
+    {
+      "article_id": "techurls::https://www.techmeme.com/260730/p59#a260730p59",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "In a memo to employees, Xbox CEO Asha Sharma lays out priorities for the unit, including returning to player and revenue growth by the end of fiscal year 2027 (The Verge)",
+      "source": "Techmeme",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 173,
+      "updated_at": "2026-07-31T07:51:58.520Z"
+    },
+    {
+      "article_id": "gamesradar::https://www.gamesradar.com/games/how-a-ghost-of-yotei-developer-spent-years-making-his-own-hit-steam-game-under-the-eye-of-sony-at-sucker-punch-most-game-studios-dont-let-you-do-that/",
+      "label": "exclude",
+      "reasons": [
+        "wrong_category",
+        "too_consumer",
+        "junk"
+      ],
+      "notes": "",
+      "title": "How a Ghost of Yotei developer spent years making his own hit Steam game under the eye of Sony at Sucker Punch: \"Most game studios don't let you do that\"",
+      "source": "GamesRadar+",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 173,
+      "updated_at": "2026-07-31T03:51:12.177Z"
+    },
+    {
+      "article_id": "gamesradar::https://www.gamesradar.com/games/super-mario/nintendos-shigeru-miyamoto-thinks-its-rude-when-fans-question-why-a-mustachioed-old-dude-like-mario-sells-so-well-but-to-be-honest-ive-had-the-same-thought/",
+      "label": "exclude",
+      "reasons": [
+        "junk",
+        "too_consumer",
+        "wrong_category"
+      ],
+      "notes": "",
+      "title": "Nintendo's Shigeru Miyamoto thinks it's \"rude\" when fans question why \"a mustachioed old dude like Mario\" sells so well, but to be honest, \"I've had the same thought\"",
+      "source": "GamesRadar+",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 173,
+      "updated_at": "2026-07-31T03:51:10.026Z"
+    },
+    {
+      "article_id": "gamesindustry_biz::https://www.gamesindustry.biz/despite-xbox-console-sales-doubling-yoy-hardware-sales-across-the-us-are-down-62-us-monthly-charts",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Despite Xbox console sales doubling YoY, hardware sales across the US are down 62% | US Monthly Charts",
+      "source": "GamesIndustry.biz",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 173,
+      "updated_at": "2026-07-31T03:59:38.719Z"
+    },
+    {
+      "article_id": "pcgamer::https://www.pcgamer.com/games/rpg/soulslike-game-wuchang-is-officially-getting-a-sequel-developed-by-its-creators-new-studio-after-the-original-team-reportedly-disbanded/",
+      "label": "watch",
+      "reasons": [
+        "market_signal"
+      ],
+      "notes": "",
+      "title": "Soulslike game Wuchang is officially getting a sequel developed by its creator's new studio after the original team reportedly disbanded",
+      "source": "PC Gamer",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 166,
+      "updated_at": "2026-07-31T07:52:29.336Z"
+    },
+    {
+      "article_id": "shacknews::/article/150205/roblox-rblx-q2-2026-earnings-results",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Roblox (RBLX) Q2 2026 earnings results miss revenue on smaller than expected EPS losses",
+      "source": "Shacknews",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 165,
+      "updated_at": "2026-07-31T03:51:03.251Z"
+    },
+    {
+      "article_id": "gamingonphone::https://gamingonphone.com/news/isekai-drifters-survivor-lets-you-battle-endless-monster-hordes-as-it-enters-android-early-access-in-select-sea-regions/",
+      "label": "include",
+      "reasons": [
+        "sea_relevance",
+        "credible_source",
+        "market_signal"
+      ],
+      "notes": "",
+      "title": "Isekai Drifters: Survivor lets you battle endless monster hordes as it enters Android early access in select SEA regions",
+      "source": "GamingonPhone",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 165,
+      "updated_at": "2026-07-31T03:18:21.889Z"
+    },
+    {
+      "article_id": "gamesindustry_biz::https://www.gamesindustry.biz/uk-games-fund-announces-largest-cohort-of-indie-studios-to-receive-grants-of-up-to-100000",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "UK Games Fund announces largest cohort of indie studios to receive grants of up to £100,000",
+      "source": "GamesIndustry.biz",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 165,
+      "updated_at": "2026-07-31T03:50:58.826Z"
+    },
+    {
+      "article_id": "pocketgamer_biz::https://www.pocketgamer.biz/why-china-is-embracing-ai-and-very-few-studios-refuse-to-adopt-it/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Why China is embracing AI and \"very few\" studios refuse to adopt it",
+      "source": "PocketGamer.biz",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 165,
+      "updated_at": "2026-07-31T03:50:56.481Z"
+    },
+    {
+      "article_id": "lowyat::https://www.lowyat.net/2026/400214/impulse-gaming-now-selling-steam-machine-for-rm7499/",
+      "label": "exclude",
+      "reasons": [
+        "too_consumer",
+        "junk"
+      ],
+      "notes": "",
+      "title": "Impulse Gaming Now Selling Steam Machine For RM7,499",
+      "source": "Lowyat.NET Gaming",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 161,
+      "updated_at": "2026-07-31T03:50:54.480Z"
+    },
+    {
+      "article_id": "one_more_game_ph::https://onemoregame.ph/2026/07/exstetra-hd-remaster-steam-console-release/",
+      "label": "watch",
+      "reasons": [
+        "market_signal"
+      ],
+      "notes": "",
+      "title": "EXSTETRA HD Remaster Launches on Steam, Console Versions Coming September 3",
+      "source": "One More Game PH",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 155,
+      "updated_at": "2026-07-31T07:52:39.880Z"
+    },
+    {
+      "article_id": "rpgsite::https://www.rpgsite.net/news/21002-exstetra-hd-remaster-steam-launch-discount-ps5-switch-2-release-date",
+      "label": "watch",
+      "reasons": [
+        "market_signal"
+      ],
+      "notes": "",
+      "title": "Exstetra HD Remaster is now available on Steam, console versions launch on September 3",
+      "source": "RPG Site",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 155,
+      "updated_at": "2026-07-31T07:52:42.616Z"
+    },
+    {
+      "article_id": "rpgsite::https://www.rpgsite.net/news/20989-action-rpg-stupid-never-dies-launches-on-october-21-for-playstation-5-pc-to-be-co-published-by-sega",
+      "label": "include",
+      "reasons": [
+        "market_signal",
+        "sea_relevance"
+      ],
+      "notes": "",
+      "title": "Action RPG Stupid Never Dies launches on October 21 for PlayStation 5 and PC; to be co-published by Sega",
+      "source": "RPG Site",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 155,
+      "updated_at": "2026-07-31T03:21:57.518Z"
+    },
+    {
+      "article_id": "comicbook_gaming::https://comicbook.com/gaming/news/intergalactic-heretic-prophet-ps5-game-naughty-dog-release-report/",
+      "label": "watch",
+      "reasons": [
+        "market_signal"
+      ],
+      "notes": "",
+      "title": "Intergalactic Report Reveals Launch Window for Naughty Dog’s Next PS5 Game",
+      "source": "ComicBook Gaming",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 155,
+      "updated_at": "2026-07-31T07:52:48.216Z"
+    },
+    {
+      "article_id": "pinoygamer::https://pinoygamer.ph/articles/pgdx-2026-partners-with-steam-to-launch-official-steam-curator-sale.27892/?utm_source=rss&utm_medium=rss",
+      "label": "exclude",
+      "reasons": [
+        "junk",
+        "wrong_category",
+        "too_consumer"
+      ],
+      "notes": "",
+      "title": "PGDX 2026 Partners with Steam to Launch Official Steam Curator Sale",
+      "source": "PinoyGamer",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 155,
+      "updated_at": "2026-07-31T03:27:48.896Z"
+    },
+    {
+      "article_id": "gamingpinas::https://gamingpinas.com/pgdx-2026-launches-official-steam-curator-sale/?utm_source=rss&utm_medium=rss&utm_campaign=pgdx-2026-launches-official-steam-curator-sale",
+      "label": "exclude",
+      "reasons": [
+        "too_consumer",
+        "repeated_story",
+        "wrong_category",
+        "junk"
+      ],
+      "notes": "",
+      "title": "PGDX 2026 Launches Official Steam Curator Sale",
+      "source": "Gaming Pinas",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 155,
+      "updated_at": "2026-07-31T03:28:07.177Z"
+    },
+    {
+      "article_id": "pocketgamer_biz::https://www.pocketgamer.biz/drilo-ventures-launches-30m-fund-for-turkeys-next-generation-of-mobile-game-founders/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Drilo Ventures launches $30m fund for Turkey's next generation of mobile game founders",
+      "source": "PocketGamer.biz",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 154,
+      "updated_at": "2026-07-31T03:50:35.041Z"
+    },
+    {
+      "article_id": "iris::https://developers.slashdot.org/story/26/07/30/0027250/google-brings-its-age-assurance-tech-to-android-developers-worldwide?utm_source=rss1.0mainlinkanon&utm_medium=feed",
+      "label": "include",
+      "reasons": [
+        "platform_policy"
+      ],
+      "notes": "",
+      "title": "Google Brings Its Age-Assurance Tech To Android Developers Worldwide",
+      "source": "Slashdot (科技资讯)",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 153,
+      "updated_at": "2026-07-31T03:38:21.051Z"
+    },
+    {
+      "article_id": "gamingph::https://gamingph.com/2026/07/lordnine-ushers-in-a-new-era-with-the-launch-of-the-helena-server-homun-family-activity-and-an-epic-tournament/",
+      "label": "exclude",
+      "reasons": [
+        "wrong_category",
+        "too_consumer",
+        "junk"
+      ],
+      "notes": "",
+      "title": "LORDNINE Ushers in a New Era with the Launch of the HELENA Server, Homun Family Activity, and an Epic Tournament",
+      "source": "GamingPH.com",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 152,
+      "updated_at": "2026-07-31T03:50:29.020Z"
+    },
+    {
+      "article_id": "ign_sea::https://sea.ign.com/the-terminator-future-shock/246225/bethesda-has-a-new-logo-to-celebrate-its-40th-anniversary-and-it-harkens-back-to-the-studios-old-ter",
+      "label": "exclude",
+      "reasons": [
+        "too_consumer",
+        "junk"
+      ],
+      "notes": "",
+      "title": "Bethesda Has a New Logo to Celebrate Its 40th Anniversary — and It Harkens Back to the Studio's Old Terminator Games",
+      "source": "IGN Southeast Asia",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 151,
+      "updated_at": "2026-07-31T03:50:21.888Z"
+    },
+    {
+      "article_id": "gamehub_vn::https://gamehub.vn/hub/dplus-kia-danh-bai-karmine-corp-gianh-ngoi-vo-dich-league-of-legends-tai-esports-world-cup-2026.153559/",
+      "label": "exclude",
+      "reasons": [
+        "junk",
+        "too_consumer"
+      ],
+      "notes": "",
+      "title": "Dplus Kia đánh bại Karmine Corp, giành ngôi vô địch League of Legends tại Esports World Cup 2026",
+      "source": "GameHub",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 150,
+      "updated_at": "2026-07-31T03:40:53.608Z"
+    },
+    {
+      "article_id": "gamesradar::https://www.gamesradar.com/games/the-elder-scrolls/after-12-years-and-heavy-layoffs-new-elder-scrolls-online-lead-says-the-mmo-is-here-to-stay-with-extra-help-from-bethesda-proper-and-all-new-experiences-in-skyrim-on-the-way/",
+      "label": "watch",
+      "reasons": [
+        "too_speculative",
+        "wrong_category",
+        "market_signal"
+      ],
+      "notes": "",
+      "title": "After 12 years and heavy layoffs, new Elder Scrolls Online lead says the MMO is \"here to stay\" with extra help from Bethesda proper and \"all-new experiences in Skyrim\" on the way",
+      "source": "GamesRadar+",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 149,
+      "updated_at": "2026-07-31T07:52:55.072Z"
+    },
+    {
+      "article_id": "pocketgamer_biz::https://www.pocketgamer.biz/krafton-achieves-record-q2-results-with-revenue-up-95-yy/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Krafton achieves record Q2 results with revenue up 95% Y/Y",
+      "source": "PocketGamer.biz",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 149,
+      "updated_at": "2026-07-31T03:50:08.791Z"
+    },
+    {
+      "article_id": "pocketgamer_biz::https://www.pocketgamer.biz/mobile-gaming-iap-dipped-2-as-ad-spend-climbed-in-h1-2026/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Mobile IAP revenue dipped 2% while ad spend climbed in H1 2026",
+      "source": "PocketGamer.biz",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 149,
+      "updated_at": "2026-07-31T03:52:15.456Z"
+    },
+    {
+      "article_id": "gamesindustry_biz::https://www.gamesindustry.biz/subnautica-and-pubg-franchises-drive-krafton-q2-revenue-up-949-to-8891m",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Subnautica and PUBG franchises drive Krafton Q2 revenue up 94.9% to $889.1m",
+      "source": "GamesIndustry.biz",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 149,
+      "updated_at": "2026-07-31T03:53:20.768Z"
+    },
+    {
+      "article_id": "gamesindustry_biz::https://www.gamesindustry.biz/new-data-suggests-layoffs-will-affect-14259-people-by-the-end-of-2026-up-78-from-first-forecast-of-the-year",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "New data suggests layoffs will affect 14,259 people by the end of 2026, up 78% from first forecast of the year",
+      "source": "GamesIndustry.biz",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 149,
+      "updated_at": "2026-07-31T03:53:39.368Z"
+    },
+    {
+      "article_id": "gamesradar::https://www.gamesradar.com/hardware/gaming-keyboards/razer-launches-the-hall-effect-huntsman-v3-he-and-is-that-a-half-decent-price-i-see/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Razer launches the Hall effect Huntsman V3 HE and is that... a half decent price I see?",
+      "source": "GamesRadar+",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 147,
+      "updated_at": "2026-07-31T03:53:43.936Z"
+    },
+    {
+      "article_id": "comicbook_gaming::https://comicbook.com/gaming/feature/marvel-tokon-fighting-souls-is-held-back-by-two-features-that-need-to-be-removed-by-launch/",
+      "label": "watch",
+      "reasons": [
+        "market_signal"
+      ],
+      "notes": "",
+      "title": "Marvel Tōkon: Fighting Souls Is Held Back By Two Features That Need To Be Removed By Launch",
+      "source": "ComicBook Gaming",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 147,
+      "updated_at": "2026-07-31T03:54:20.216Z"
+    },
+    {
+      "article_id": "gamingonphone::https://gamingonphone.com/esports/ea-sports-fc-pro-mobile-set-for-bangkok-and-seoul-showdowns-as-road-to-world-championship-in-october-begins/",
+      "label": "watch",
+      "reasons": [
+        "sea_relevance"
+      ],
+      "notes": "",
+      "title": "EA SPORTS FC Pro Mobile set for Bangkok and Seoul showdowns as road to World Championship in October begins",
+      "source": "GamingonPhone",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 144,
+      "updated_at": "2026-07-31T03:54:31.016Z"
+    },
+    {
+      "article_id": "ungeek::https://www.ungeek.ph/2026/07/splatoon-raiders-is-out-now-on-switch-2-and-fans-are-seriously-loving-it/?utm_source=rss&utm_medium=rss&utm_campaign=splatoon-raiders-is-out-now-on-switch-2-and-fans-are-seriously-loving-it",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Splatoon Raiders is out now on Switch 2, and fans are seriously loving it",
+      "source": "Ungeek",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 143,
+      "updated_at": "2026-07-31T03:54:41.536Z"
+    },
+    {
+      "article_id": "gamerant::https://gamerant.com/cheap-pc-games-layoffs/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Brand-New PC Game Deal Features 100 Games for $10 Bucks to Help Laid Off Game Developers",
+      "source": "Game Rant",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 141,
+      "updated_at": "2026-07-31T03:54:55.560Z"
+    },
+    {
+      "article_id": "one_more_game_ph::https://onemoregame.ph/2026/07/iterco-launches-iterhaus-porch-jakarta/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "iterco Launches iterhaus and Porch, Building Indonesia’s New Creative Hub",
+      "source": "One More Game PH",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 141,
+      "updated_at": "2026-07-31T03:55:06.808Z"
+    },
+    {
+      "article_id": "vcgamers::https://www.vcgamers.com/news/mengeal-sigma-studio-arm-private-limited-developer-game-indie/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Mengeal Sigma Studio Arm Private Limited, Developer Game Indie",
+      "source": "VCGamers",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 141,
+      "updated_at": "2026-07-31T03:55:23.760Z"
+    },
+    {
+      "article_id": "pcgamer::https://www.pcgamer.com/gaming-industry/after-laying-off-battlefield-6-developers-ea-pays-its-ceo-usd38-million-because-battlefield-6-did-so-well/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "After laying off Battlefield 6 developers, EA pays its CEO $38 million because Battlefield 6 did so well",
+      "source": "PC Gamer",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 141,
+      "updated_at": "2026-07-31T03:57:05.968Z"
+    },
+    {
+      "article_id": "pocketgamer_biz::https://www.pocketgamer.biz/publishers-are-returning-to-china-and-not-just-for-quick-wins/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Publishers are returning to China and not just for \"quick wins\"",
+      "source": "PocketGamer.biz",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 141,
+      "updated_at": "2026-07-31T03:57:10.671Z"
+    },
+    {
+      "article_id": "pockettactics::https://www.pockettactics.com/kinetic-publishing-showcase",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Ben Starr to host a new indie gaming showcase from the studio behind Phasmophobia",
+      "source": "Pocket Tactics",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 141,
+      "updated_at": "2026-07-31T03:57:48.407Z"
+    },
+    {
+      "article_id": "gamermatters::https://gamermatters.com/sequel-to-wuchang-fallen-feathers-announced-to-be-developed-by-original-creator-under-new-studio/",
+      "label": "watch",
+      "reasons": [
+        "market_signal",
+        "repeated_story"
+      ],
+      "notes": "",
+      "title": "Sequel To Wuchang: Fallen Feathers Announced, To Be Developed By Original Creator Under New Studio",
+      "source": "Gamer Matters",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 141,
+      "updated_at": "2026-07-31T04:00:19.320Z"
+    },
+    {
+      "article_id": "mobilegamer_biz::https://mobilegamer.biz/2026s-top-10-grossing-mobile-games-so-far-honor-of-kings-whiteout-survival-lastwar-royal-match-pubg-mobile-more/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "2026’s top 10 grossing mobile games (so far): Honor of Kings, Whiteout Survival, LastWar, Royal Match, more",
+      "source": "MobileGamer.biz",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 141,
+      "updated_at": "2026-07-31T04:00:28.288Z"
+    },
+    {
+      "article_id": "mobilegamer_biz::https://mobilegamer.biz/2026s-top-10-mobile-game-downloads-so-far-free-fire-max-block-blast-roblox-arrows-more/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "2026’s top 10 mobile game downloads (so far): Free Fire Max, Block Blast, Roblox, Arrows, Subway Surfers, more",
+      "source": "MobileGamer.biz",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 141,
+      "updated_at": "2026-07-31T04:00:31.216Z"
+    },
+    {
+      "article_id": "80845e8a9ddf463d595c8e99faeb7b900aab93ba",
+      "label": "include",
+      "reasons": [
+        "market_signal"
+      ],
+      "notes": "",
+      "title": "In a huge blow to game ownership, PlayStation confirms end of physical games — mere days after GTA 6's disc-less pre-orders",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 139,
+      "updated_at": "2026-07-31T04:00:38.384Z"
+    },
+    {
+      "article_id": "gamek_vn::https://gamek.vn/team-flash-xuat-quan-esports-world-cup-2026-voi-3-mui-nhon-san-huy-chuong-178260730170151303.chn",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Team Flash xuất quân Esports World Cup 2026 với 3 \"mũi nhọn\" săn huy chương",
+      "source": "GameK Esport",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 138,
+      "updated_at": "2026-07-31T04:00:50.488Z"
+    },
+    {
+      "article_id": "gamelade::https://gamelade.vn/le-hoi-the-thao-dien-tu-esports-world-cup-chuan-bi-do-bo-dai-lo-champs-elysees/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Lễ hội thể thao điện tử Esports World Cup chuẩn bị đổ bộ đại lộ Champs-Élysées",
+      "source": "Gamelade",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 138,
+      "updated_at": "2026-07-31T04:01:00.256Z"
+    },
+    {
+      "article_id": "gamehub_vn::https://gamehub.vn/hub/virtus-pro-gianh-chuc-vo-dich-pubg-tai-esports-world-cup-2026-sau-ba-ngay-thong-tri-vong-chung-ket.153572/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Virtus.pro giành chức vô địch PUBG tại Esports World Cup 2026 sau ba ngày thống trị Vòng Chung kết",
+      "source": "GameHub",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 138,
+      "updated_at": "2026-07-31T04:01:36.087Z"
+    },
+    {
+      "article_id": "pocketgamer_biz::https://www.pocketgamer.biz/esports-world-cup-to-bring-free-gaming-festival-to-paris-champs-lyses/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Esports World Cup to bring free gaming festival to Paris' Champs-Élysées",
+      "source": "PocketGamer.biz",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 138,
+      "updated_at": "2026-07-31T04:01:36.808Z"
+    },
+    {
+      "article_id": "kaorinusantara::https://www.kaorinusantara.or.id/newsline/246415/revivaltv-bangkit-kembali-di-panggung-esports-indonesia-pada-juli-2026",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "RevivaLTV Bangkit Kembali di Panggung Esports Indonesia pada Juli 2026",
+      "source": "Kaori Nusantara",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 138,
+      "updated_at": "2026-07-31T04:01:40.634Z"
+    },
+    {
+      "article_id": "techurls::https://www.macrumors.com/2026/07/30/app-store-services-revenue-impact/",
+      "label": "watch",
+      "reasons": [
+        "platform_policy",
+        "market_signal"
+      ],
+      "notes": "",
+      "title": "Apple Says App Store Changes and Mobile Gaming Softness Affected Services Revenue",
+      "source": "Mac Rumors",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 137,
+      "updated_at": "2026-07-31T07:53:04.016Z"
+    },
+    {
+      "article_id": "techurls::https://www.macrumors.com/2026/07/30/brazil-epic-games-store/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Fortnite Returns to iPhone in Brazil as Epic Games Store Launches",
+      "source": "Mac Rumors",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 135,
+      "updated_at": "2026-07-31T04:02:18.840Z"
+    },
+    {
+      "article_id": "gamehub_vn::https://gamehub.vn/hub/tuyen-thu-viet-nam-len-ngoi-vo-dich-esports-grand-championship-2026-bo-mon-summoners-war.153544/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Tuyển thủ Việt Nam lên ngôi vô địch Esports Grand Championship 2026 bộ môn Summoners War",
+      "source": "GameHub",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 134,
+      "updated_at": "2026-07-31T04:02:21.928Z"
+    },
+    {
+      "article_id": "shacknews::/article/150204/ea-merger-regulatory-approval-closing-date",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "EA approved for acquisition by Silver Lake, Affinity Partners & Saudi PIF investors next week",
+      "source": "Shacknews",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 133,
+      "updated_at": "2026-07-31T04:02:37.743Z"
+    },
+    {
+      "article_id": "gamesradar::https://www.gamesradar.com/entertainment/marvel-tv-shows/marvel-cancels-wonder-man-season-2-just-4-months-after-announcement/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Marvel cancels Wonder Man season 2 just 4 months after announcement",
+      "source": "GamesRadar+",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 133,
+      "updated_at": "2026-07-31T04:02:41.584Z"
+    },
+    {
+      "article_id": "pcgamer::https://www.pcgamer.com/games/rpg/the-mod-we-called-the-best-fallout-game-youll-play-this-year-back-in-2018-just-launched-on-gog/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "The mod we called 'the best Fallout game you'll play this year' back in 2018 just launched on GOG",
+      "source": "PC Gamer",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 131,
+      "updated_at": "2026-07-31T04:02:47.488Z"
+    },
+    {
+      "article_id": "mobilegamer_biz::https://mobilegamer.biz/new-game-digest-lumines-fortnite-rust-honor-of-kings-ace-transformers-plants-vs-zombies-3-moon-actives-new-soft-launch-more/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "New game digest: Lumines, Fortnite, Rust, Honor of Kings, Transformers, Plants Vs Zombies 3, a Moon Active soft launch and more",
+      "source": "MobileGamer.biz",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 131,
+      "updated_at": "2026-07-31T04:03:01.592Z"
+    },
+    {
+      "article_id": "ign_sea::https://sea.ign.com/untitled-mario-kart-game/245847/the-grade-a-refurb-nintendo-switch-2-mario-kart-world-console-bundle-just-dropped-to-419-at-woot",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "The Grade A Refurb Nintendo Switch 2 Mario Kart World Console Bundle Just Dropped to $419 at Woot",
+      "source": "IGN Southeast Asia",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 131,
+      "updated_at": "2026-07-31T04:03:06.128Z"
+    },
+    {
+      "article_id": "rpgsite::https://www.rpgsite.net/news/21008-new-dungeon-crawler-rpg-dverghold-launches-for-pc-via-early-access",
+      "label": "watch",
+      "reasons": [
+        "market_signal"
+      ],
+      "notes": "",
+      "title": "New dungeon crawler RPG Dverghold launches for PC via Early Access",
+      "source": "RPG Site",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 131,
+      "updated_at": "2026-07-31T07:53:06.104Z"
+    },
+    {
+      "article_id": "one_more_game_ph::https://onemoregame.ph/2026/07/stupid-never-dies-october-22-launch/",
+      "label": "include",
+      "reasons": [
+        "repeated_story",
+        "market_signal"
+      ],
+      "notes": "",
+      "title": "Stupid Never Dies, the “Blazing Fast Growth” Action RPG, Launches October 22",
+      "source": "One More Game PH",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 131,
+      "updated_at": "2026-07-31T04:05:03.496Z"
+    },
+    {
+      "article_id": "gamingph::https://gamingph.com/2026/07/dont-miss-out-smilegate-launches-helena-the-new-lordnine-server-offering-unprecedented-rewards-to-support-player-growth/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Don’t Miss Out! Smilegate Launches ‘HELENA,’ the New LORDNINE Server, Offering Unprecedented Rewards to Support Player Growth",
+      "source": "GamingPH.com",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 131,
+      "updated_at": "2026-07-31T04:05:10.296Z"
+    },
+    {
+      "article_id": "gamermatters::https://gamermatters.com/stupid-never-dies-launches-this-october/",
+      "label": "include",
+      "reasons": [
+        "market_signal",
+        "repeated_story"
+      ],
+      "notes": "",
+      "title": "Stupid Never Dies Launches This October",
+      "source": "Gamer Matters",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 131,
+      "updated_at": "2026-07-31T04:05:14.895Z"
+    },
+    {
+      "article_id": "comicbook_gaming::https://comicbook.com/gaming/news/nes-nintendo-games-new-release-40-years/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "NES Game Gets New Release 40 Years After Original Launch",
+      "source": "ComicBook Gaming",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 131,
+      "updated_at": "2026-07-31T04:06:10.800Z"
+    },
+    {
+      "article_id": "esports_net::https://www.esports.net/news/gta-online-digital-casinos-australia/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Australian GTA Online players can buy tanks and launch rocket attack helicopters, but digital casinos are where the government draws the line",
+      "source": "Esports.net",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 131,
+      "updated_at": "2026-07-31T04:06:26.207Z"
+    },
+    {
+      "article_id": "pcgamer::https://www.pcgamer.com/games/fighting/marvel-tokon-devs-vow-to-fix-performance-issues-for-launch-day-next-week-to-our-pc-players-message-received/",
+      "label": "watch",
+      "reasons": [
+        "market_signal",
+        "repeated_story"
+      ],
+      "notes": "",
+      "title": "Marvel Tōkon devs vow to fix performance issues for launch day next week: 'To our PC players, message received'",
+      "source": "PC Gamer",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 131,
+      "updated_at": "2026-07-31T04:06:46.583Z"
+    },
+    {
+      "article_id": "pocketgamer_biz::https://www.pocketgamer.biz/toya-launches-ai-powered-playtiger-analytics-platform-for-roblox/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Toya launches AI-powered PlayTiger analytics platform for Roblox",
+      "source": "PocketGamer.biz",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 131,
+      "updated_at": "2026-07-31T04:06:51.751Z"
+    },
+    {
+      "article_id": "pinoygamer::https://pinoygamer.ph/articles/night-crows-kicks-off-summer-part-2-crimson-sun-festival-new-class-gauntlet-launches-simultaneously.27909/?utm_source=rss&utm_medium=rss",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "NIGHT CROWS Kicks Off Summer Part 2 'Crimson Sun Festival'... New Class 'Gauntlet' Launches Simultaneously",
+      "source": "PinoyGamer",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 131,
+      "updated_at": "2026-07-31T04:07:05.600Z"
+    },
+    {
+      "article_id": "pocketgamer_biz::https://www.pocketgamer.biz/trkiye-launches-nextgen-high-school-startup-incubator-with-loom-games-support/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Türkiye launches NextGen high school startup incubator with Loom Games support",
+      "source": "PocketGamer.biz",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 131,
+      "updated_at": "2026-07-31T04:07:10.783Z"
+    },
+    {
+      "article_id": "pocketgamer_biz::https://www.pocketgamer.biz/stumble-guys-launches-disability-pride-month-charity-campaign-with-specialeffect/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Stumble Guys launches Disability Pride Month charity campaign with SpecialEffect",
+      "source": "PocketGamer.biz",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 131,
+      "updated_at": "2026-07-31T04:07:15.416Z"
+    },
+    {
+      "article_id": "gamestation_id::https://gamestation.co.id/rewind-roleplay-siap-launching-tanggal-1/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Rewind Roleplay Siap Launching Tanggal 1, Tiga Legenda Kembali",
+      "source": "GameStation.co.id",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 131,
+      "updated_at": "2026-07-31T04:07:46.752Z"
+    },
+    {
+      "article_id": "gamermatters::https://gamermatters.com/god-of-war-laufey-launches-in-february-2027/",
+      "label": "include",
+      "reasons": [
+        "market_signal"
+      ],
+      "notes": "",
+      "title": "God Of War Laufey Launches In February 2027",
+      "source": "Gamer Matters",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 131,
+      "updated_at": "2026-07-31T06:18:13.512Z"
+    },
+    {
+      "article_id": "genk_vn::https://genk.vn/virtuspro-vo-dich-pubg-tai-esports-world-cup-2026-nhung-dai-dien-viet-nam-moi-la-bat-ngo-lon-nhat-16526072816385838.chn",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Virtus.pro vô địch PUBG tại Esports World Cup 2026, nhưng đại diện Việt Nam mới là bất ngờ lớn nhất",
+      "source": "GenK Apps & Games",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 126,
+      "updated_at": "2026-07-31T06:18:26.008Z"
+    },
+    {
+      "article_id": "comicbook_gaming::https://comicbook.com/gaming/feature/the-weirdest-most-addictive-ps3-game-released-17-years-ago-today-and-it-still-isnt-playable-on-ps5/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "The Weirdest & Most Addictive PS3 Game Released 17 Years Ago Today And It Still Isn’t Playable on PS5",
+      "source": "ComicBook Gaming",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 125,
+      "updated_at": "2026-07-31T06:18:31.312Z"
+    },
+    {
+      "article_id": "player_one::https://www.player.one/this-resident-evil-game-beat-re5-best-selling-title-franchisewhat-it-163738",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "This 'Resident Evil' Game Beat 'RE5' as the Best-Selling Title In the Franchise—What Is It?",
+      "source": "Player.One",
+      "suggested_trend_bucket": "include_candidate",
+      "system_score": 123,
+      "updated_at": "2026-07-31T06:18:52.737Z"
+    },
+    {
+      "article_id": "gamesindustry_biz::https://www.gamesindustry.biz/john-romero-announced-as-keynote-speaker-for-gamescom-asia-x-thailand-game-show",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "John Romero announced as keynote speaker for Gamescom Asia x Thailand Game Show",
+      "source": "GamesIndustry.biz",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 60,
+      "updated_at": "2026-07-31T06:18:59.432Z"
+    },
+    {
+      "article_id": "gamesindustry_biz::https://www.gamesindustry.biz/i-had-a-front-row-seat-to-one-of-the-greatest-creative-explosions-in-history-glen-schofield-announces-retirement",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "\"I had a front row seat to one of the greatest creative explosions in history\" – Glen Schofield announces retirement",
+      "source": "GamesIndustry.biz",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 60,
+      "updated_at": "2026-07-31T06:19:06.393Z"
+    },
+    {
+      "article_id": "liputan6_tekno_game::https://www.liputan6.com/tekno/read/7916371/asian-games-2026-timnas-indonesia-dipastikan-berlaga-di-9-nomor-esports-sekaligus",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Asian Games 2026: Timnas Indonesia Dipastikan Berlaga di 9 Nomor Esports Sekaligus",
+      "source": "Liputan6 Tekno Game",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 60,
+      "updated_at": "2026-07-31T06:19:25.561Z"
+    },
+    {
+      "article_id": "liputan6_tekno_game::https://www.liputan6.com/tekno/read/7893959/timnas-esports-indonesia-amankan-3-tiket-asian-games-2026-mobile-legends-menyusul",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Timnas Esports Indonesia Amankan 3 Tiket Asian Games 2026, Mobile Legends Menyusul?",
+      "source": "Liputan6 Tekno Game",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 60,
+      "updated_at": "2026-07-31T06:19:28.152Z"
+    },
+    {
+      "article_id": "gamelade::https://gamelade.vn/trailer-tong-quan-cua-xenoblade-chronicles-2-danh-cho-phien-ban-nintendo-switch-2-duoc-cong-bo/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Trailer tổng quan của Xenoblade Chronicles 2 dành cho phiên bản Nintendo Switch 2 được công bố",
+      "source": "Gamelade",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 61,
+      "updated_at": "2026-07-31T06:19:39.032Z"
+    },
+    {
+      "article_id": "f0608ae105355245a7f27868cdb164a5290b4dec",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Xbox layoffs, studio closures could start in days",
+      "source": "Mashable",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 59,
+      "updated_at": "2026-07-31T06:19:56.249Z"
+    },
+    {
+      "article_id": "8796640db2cdc1fd681d1b4f9d4e441e8f0d398f",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Xbox layoff plans reportedly include closing Arkane, canceling Blade",
+      "source": "Engadget",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 59,
+      "updated_at": "2026-07-31T06:20:21.778Z"
+    },
+    {
+      "article_id": "ede4325cd6467aa9b14adf5ffcdac7bf5b9636d8",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Xbox studio apocalypse: Every studio closure rumored and confirmed",
+      "source": "Mashable",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 59,
+      "updated_at": "2026-07-31T06:20:33.225Z"
+    },
+    {
+      "article_id": "f8f458e3921e7cfb5b3e9e003a8cdb1b1c214fb0",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Epic CEO 斯威尼：高成本与社交化趋势下，《Roblox》或将吞噬整个游戏行业",
+      "source": "IT之家 (ITHome)",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 61,
+      "updated_at": "2026-07-31T06:21:56.736Z"
+    },
+    {
+      "article_id": "d7785cbfef04add50a93088793158337efcc1fce",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Xbox Game Studios chief reportedly steps down as layoffs loom",
+      "source": "Engadget",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 59,
+      "updated_at": "2026-07-31T06:25:08.152Z"
+    },
+    {
+      "article_id": "gamesradar::https://www.gamesradar.com/games/pokemon/usd9-000-ebay-auction-might-hold-a-secret-pokemon-game-thats-been-lost-for-20-years/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "$9,000 eBay auction might hold a secret Pokemon game that's been lost for 20 years",
+      "source": "GamesRadar+",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 57,
+      "updated_at": "2026-07-31T06:25:14.208Z"
+    },
+    {
+      "article_id": "gamesindustry_biz::https://www.gamesindustry.biz/appmagic-pokemon-go-generates-485m-during-10th-anniversary-celebrations",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "AppMagic: Pokémon Go generates $48.5m during 10th anniversary celebrations",
+      "source": "GamesIndustry.biz",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 57,
+      "updated_at": "2026-07-31T06:25:43.632Z"
+    },
+    {
+      "article_id": "gamespot_asia::https://www.gamespot.com/articles/ea-ceo-got-a-huge-pay-increase-while-company-laid-off-devs/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "EA CEO Got A Huge Pay Increase While Company Laid Off Devs",
+      "source": "GameSpot Asia",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 57,
+      "updated_at": "2026-07-31T06:25:48.584Z"
+    },
+    {
+      "article_id": "mobilegamer_biz::https://mobilegamer.biz/drilo-ventures-reveals-30m-fund-for-turkiyes-second-wave-of-gaming-founders/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Drilo Ventures reveals $30m fund for ‘Türkiye’s second wave of gaming founders’",
+      "source": "MobileGamer.biz",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 57,
+      "updated_at": "2026-07-31T06:25:52.073Z"
+    },
+    {
+      "article_id": "pocketgamer_biz::https://www.pocketgamer.biz/court-orders-papaya-gaming-to-pay-skillz-719m-in-false-advertising-case/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Court orders Papaya Gaming to pay Skillz $719m in false advertising case",
+      "source": "PocketGamer.biz",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 57,
+      "updated_at": "2026-07-31T06:25:57.504Z"
+    },
+    {
+      "article_id": "pocketgamer_biz::https://www.pocketgamer.biz/arknights-endfield-surpasses-125m-in-six-months-on-mobile/",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Arknights: Endfield surpasses $125m in six months on mobile",
+      "source": "PocketGamer.biz",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 57,
+      "updated_at": "2026-07-31T06:26:02.512Z"
+    },
+    {
+      "article_id": "gamesindustry_biz::https://www.gamesindustry.biz/eu-commission-approves-55bn-ea-buyout-says-it-would-not-raise-competition-concerns",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "EU Commission approves $55bn EA buyout, says it \"would not raise competition concerns\"",
+      "source": "GamesIndustry.biz",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 57,
+      "updated_at": "2026-07-31T06:27:51.312Z"
+    },
+    {
+      "article_id": "gamesindustry_biz::https://www.gamesindustry.biz/hasbro-records-56m-write-down-and-cancels-several-games-scheduled-for-2028-and-beyond",
+      "label": "include",
+      "reasons": [
+        "market_signal",
+        "publisher_strategy"
+      ],
+      "notes": "",
+      "title": "Hasbro records $56m write-down and cancels \"several games\" scheduled for 2028 and beyond",
+      "source": "GamesIndustry.biz",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 57,
+      "updated_at": "2026-07-31T06:34:19.505Z"
+    },
+    {
+      "article_id": "gamesindustry_biz::https://www.gamesindustry.biz/judge-halts-paramount-warner-bros-merger-for-a-minimum-of-14-days",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Judge halts Paramount-Warner Bros. merger for a minimum of 14 days",
+      "source": "GamesIndustry.biz",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 57,
+      "updated_at": "2026-07-31T06:41:27.840Z"
+    },
+    {
+      "article_id": "gamesindustry_biz::https://www.gamesindustry.biz/newzoo-gta-6-pre-orders-generate-260m-globally-during-first-week-of-campaign",
+      "label": "include",
+      "reasons": [
+        "market_signal"
+      ],
+      "notes": "",
+      "title": "Newzoo: GTA 6 pre-orders generate estimated $260m globally during first week of campaign",
+      "source": "GamesIndustry.biz",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 57,
+      "updated_at": "2026-07-31T06:41:35.088Z"
+    },
+    {
+      "article_id": "c23fb0466bf3d2c5cbfa2d5a87c34ec45f4c20d5",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "GTA 6 developer Rockstar Games accused of enabling crunch, failing to address gender pay gap, and weaponizing bonuses",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T06:41:50.176Z"
+    },
+    {
+      "article_id": "39e69633302bd9155cc0b541fc8859b0741a506c",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Ex-PlayStation boss calls Sony's plan to kill physical disc production 'fairly dramatic' and remembers a time when 'digital sales were zero percent because we didn't have a digital market'",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T06:42:01.969Z"
+    },
+    {
+      "article_id": "f4b82b85fb0c69591acb0baca5a204e3c593d880",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "All you have to do is ask the AI to create a mobile version using the right files, and it’ll do it for you 👍 Just tell it, “Make me a mobile version of my game so I can turn it into an APK using Android Studio,” and as…",
+      "source": "@NEPTUNE_GX",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T06:43:53.048Z"
+    },
+    {
+      "article_id": "14c8f22fa59fda1a151dc9af3c36e012575fcbb3",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Ubisoft taps ex-Amazon Games chief to run its Tom Clancy studio",
+      "source": "The Next Web",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T06:44:00.352Z"
+    },
+    {
+      "article_id": "b04de63f47c028affe8304ec0fd3e90b0d31fcbf",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "《漫威 刀锋战士》或遭取消，Xbox 据称考虑关闭 Arkane Studios",
+      "source": "机核网 · 每日最新",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T06:44:04.489Z"
+    },
+    {
+      "article_id": "10e69d89fb07a3090037cb3f30628bacaddd05d2",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Sources: data center operator Switch seeks a ~$2B funding round valuing the company at ~$50B, including debt, led by a $400M investment from Andreessen Horowitz (Bloomberg)",
+      "source": "Techmeme",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T06:44:15.968Z"
+    },
+    {
+      "article_id": "6b53b76849931fcd7c3b052e0ff4d4bffeafd9bf",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Sony will stop making physical copies of PlayStation games in 2028",
+      "source": "Ars Technica (科技媒体)",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T06:44:25.472Z"
+    },
+    {
+      "article_id": "1b4acb27333620474f46c06fd0e7a73a0da5592e",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Exclusive: Blood Message developer describes working on a AAA narrative game as 'every team member's dream' — 'We are all fans of so many great titles, like Uncharted, like The Last of Us'",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T06:50:07.532Z"
+    },
+    {
+      "article_id": "9952aa7accbd42c2a635efd665c2776521841642",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "The 4th of July sales include great prices on RTX 5060, RTX 5070, and RTX 5070 Ti gaming laptops — perfect for college students",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T06:50:10.648Z"
+    },
+    {
+      "article_id": "a8d078643481780fadefdbbe3d2f5861b514b5be",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Sony says all new PlayStation games from both first- and third-party developers will be sold in digital formats from January 2028, ending physical game discs (Stephen Totilo/Game File)",
+      "source": "Techmeme",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T06:50:16.873Z"
+    },
+    {
+      "article_id": "7c33de4950eef155758c353a60086a3ab369a013",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "曝微软暂停第三方 Game Pass 新合作：多名开发者谈判被叫停，Xbox 新 CEO 夏尔马推进业务“重置”",
+      "source": "IT之家 (ITHome)",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T06:50:33.568Z"
+    },
+    {
+      "article_id": "2a05b0e2c76ea059441eaeeba758713df704a274",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Leaker claims the PlayStation 6 costs Sony $960 to manufacture",
+      "source": "Mashable",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T06:50:39.929Z"
+    },
+    {
+      "article_id": "cf43acf54c4aa8538ee46f56aa588694f25cf0bd",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Xbox disputes claims GTA 6 is selling 8x more copies on PlayStation, but I'm not convinced it's doing great",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T06:50:48.753Z"
+    },
+    {
+      "article_id": "fa6829c8903590b2ff8120226786c2ba8d57fec2",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "在PlayStation Store购买的Studio Canal电影已被移除，且不予退款",
+      "source": "www.playstation.com",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T06:50:58.624Z"
+    },
+    {
+      "article_id": "3de8bb9f19de095614a920e3c267f8cb2fc653e0",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "The Steam Machine is overpriced yet it's sold out already in Japan — but be careful about buying a cheap clone",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T06:51:21.424Z"
+    },
+    {
+      "article_id": "1dd86c8ab03ce177581c7418853719113df40b13",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Europeans to lose access to Studio Canal content bought through PlayStation",
+      "source": "Mashable",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T06:51:50.808Z"
+    },
+    {
+      "article_id": "34a8b252d6c228ded5341578a6518dad6a89366c",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "📢 MAJOR ANNOUNCEMENT: Oracle AI Trade announces the debut of its intelligent investment network 🚀 📌 More info: https://t.co/C1P2xmGCiy",
+      "source": "@KarrarGamer777",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T06:52:14.424Z"
+    },
+    {
+      "article_id": "7b64b4dc4259cbc3cb1cc1579c4bb4cb5e33363e",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "PlayStation CEO says Sony will be 'leveraging technologies that can be used in various forms and locations' for future consoles, potentially suggesting a PS6 handheld is in the cards",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T06:53:01.641Z"
+    },
+    {
+      "article_id": "ebc8e147818d8fe57b59340a73f40ab989c4176a",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "New report reveals the Nintendo Switch 2 is the second fastest-selling video game hardware in US history, as Xbox and PS5 unit sales struggle",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T06:56:38.563Z"
+    },
+    {
+      "article_id": "cddfd129be24712b17174fbe4244d2b09d1e66af",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Epic CEO 蒂姆 · 斯威尼反对 Steam 强制披露 AI 要求，称其阻碍开发者提高效率",
+      "source": "IT之家 (ITHome)",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T06:57:44.385Z"
+    },
+    {
+      "article_id": "8399eb7684c503afb2147a5a65c7fe2628751b26",
+      "label": "watch",
+      "reasons": [
+        "market_signal"
+      ],
+      "notes": "",
+      "title": "Microsoft is raising Xbox prices yet again due to the memory shortage — this time by $100-$150",
+      "source": "Business Insider",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:53:13.928Z"
+    },
+    {
+      "article_id": "21fafaed67f645978925c2f7a547bb1b4706bb01",
+      "label": "watch",
+      "reasons": [
+        "repeated_story",
+        "market_signal"
+      ],
+      "notes": "",
+      "title": "Microsoft raises Xbox console prices for the third time in 13 months, pushing the Series X to $800",
+      "source": "The Next Web",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:53:16.049Z"
+    },
+    {
+      "article_id": "0c124830e3c764cd4a8c4cd36fe468d4d6f886ce",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "General Intuition, which trains AI agents in spatial reasoning via gameplay footage, raised $320M led by Khosla at a $2.3B valuation, for $454M in total funding (Rebecca Bellan/TechCrunch)",
+      "source": "Techmeme",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:06:12.994Z"
+    },
+    {
+      "article_id": "2849afffb769509bc9529dd94aa31767538109a5",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "GTA VI preorders are live for PS5 and Xbox, starting at $80 with a $100 Ultimate Edition",
+      "source": "Mashable",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:07:00.336Z"
+    },
+    {
+      "article_id": "6be4558cc8c2be9baaf4b5c7d8263c98827704ab",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Pokémon Legends: Z-A on Switch 2 has had a massive price drop for Prime Day — save $25 with record-low price",
+      "source": "Mashable",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:10:45.490Z"
+    },
+    {
+      "article_id": "1f1d7d60466f3358b5dfee6fa8ea52a5859bfdd8",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "微软 Xbox CEO 夏尔马：《使命召唤》商业规模超越漫威电影宇宙",
+      "source": "IT之家 (ITHome)",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:10:56.545Z"
+    },
+    {
+      "article_id": "8444a06dd1f1a598096b1037ae46c8da3c3efec7",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "AI is Ruining Game Sales, Numbers Show",
+      "source": "Reddit (热门)",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:10:58.890Z"
+    },
+    {
+      "article_id": "fe9e9b52e090ab93cdd1f681485e3a41c024c92a",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Sources: Tencent is negotiating exits from several game studio investments in Japan, including Tokyo-traded Marvelous, as it reassesses its global portfolio (Bloomberg)",
+      "source": "Techmeme",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:14:17.418Z"
+    },
+    {
+      "article_id": "15fcb4a16af0d8bff427f13d1e47b3ca53192075",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Valve's Steam Machine ships June 29 for $1,049, but you probably won't be able to buy one yet",
+      "source": "Ars Technica (科技媒体)",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:14:20.979Z"
+    },
+    {
+      "article_id": "779edc02ec6b2b04d2e02f466d68d5a43cdca2a9",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Valve Prices the Steam Machine At $1,049",
+      "source": "Slashdot",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:14:24.121Z"
+    },
+    {
+      "article_id": "f51d41aa6be4878df9aa0ecd1163c0bd4159d8fb",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "The Steam Machine Costs $1049",
+      "source": "Reddit (热门)",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:14:25.881Z"
+    },
+    {
+      "article_id": "1f7f692cdca39365fee70af1bf19ce6d46d9e39e",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "《奥日》开发商 CEO：微软 XBOX Game Pass 游戏库阵容质量不足，无法吸引玩家持续支付订阅费",
+      "source": "IT之家 (ITHome)",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:14:47.306Z"
+    },
+    {
+      "article_id": "d20e3a8badea19a126282fb84d07501ff652a6f8",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Halo Studios 更正游戏《光环：战役进化》PS5 联机说明：本地分屏无需 PS Plus 订阅",
+      "source": "IT之家 (ITHome)",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:14:49.682Z"
+    },
+    {
+      "article_id": "fad55b18ffd24c135c9ccf587d9cff72b421b322",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Gamers Sue PlayStation:  It's Not Clear They're Selling Licenses Rather Than Ownership of Games",
+      "source": "Slashdot (科技资讯)",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:14:56.537Z"
+    },
+    {
+      "article_id": "a22e7d56d7d62211df8c10f160b983d071e4c6bf",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Sony’s $7.85M PlayStation Store antitrust settlement has been preliminarily approved",
+      "source": "The Next Web",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:15:21.242Z"
+    },
+    {
+      "article_id": "27432359cbe444b8f8d07049ef052e1bbeac37bc",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "We spoke to three Xbox Game Studio teams about exclusivity, and got two very different answers",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:15:25.092Z"
+    },
+    {
+      "article_id": "28c9021074a7dbd3df4380b252e571305f79fd26",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "This Steam app with 20 million downloads is accidentally spreading malware",
+      "source": "MakeUseOf",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:15:28.905Z"
+    },
+    {
+      "article_id": "b00545147fd57e7db85b7cb5d3310711f7f91784",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Three Xbox studios are trying to buy their way out of Microsoft’s gaming restructuring",
+      "source": "The Next Web",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:15:32.441Z"
+    },
+    {
+      "article_id": "9f6a974e3bed66dbe30f88980410b2034599e44d",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "微软 CEO 纳德拉：多年以来都是我们在补贴 XBOX，而不是靠它赚钱",
+      "source": "IT之家 (ITHome)",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:15:34.849Z"
+    },
+    {
+      "article_id": "767a8b088674bd324929b6f5a18ec1b73cee346c",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Spyro: A Realm Beyond studio CEO says there was no 'pushback' to becoming independent from Activision Blizzard, but the process and planning the game at the same time was 'complex' — 'I think that was the biggest challenge'",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:15:50.805Z"
+    },
+    {
+      "article_id": "f0c3f85f300705069dc8419feb64368a25159f5e",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Xbox CEO Says Current Margins 'Cannot Continue'",
+      "source": "Slashdot",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:15:53.827Z"
+    },
+    {
+      "article_id": "6b7f2c11fb59e3932f8361e00996a7a279904e1a",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Xbox CEO 表示不确定动视暴雪收购是否物有所值",
+      "source": "机核网 · 每日最新",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:15:55.737Z"
+    },
+    {
+      "article_id": "5b9ff319971bbe37aff05155967c36ab07433559",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Xbox CEO says current margins 'cannot continue' in public letter to staff",
+      "source": "Engadget",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:15:57.708Z"
+    },
+    {
+      "article_id": "e3a22f8e2764fb72567a954006164fef6bdaca62",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "微软 XBOX CEO 夏尔马：上任不到四个月存储器已涨价 50%",
+      "source": "IT之家 (ITHome)",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:15:59.625Z"
+    },
+    {
+      "article_id": "d0939ed9018ee262ff3b31dd230c1bbe43426d51",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "微软 Xbox 新 CEO 夏尔马宠粉：向发布会现场观众赠送 25 周年限定版 Series X 主机",
+      "source": "IT之家 (ITHome)",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:16:01.809Z"
+    },
+    {
+      "article_id": "75052797f04339fd03473e436e6e2aef3a48abf3",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "LaryWaves Studio on Steam",
+      "source": "producthunt",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:16:06.578Z"
+    },
+    {
+      "article_id": "c5a2440aecb68658c0156c88f224d0b3ee585e5e",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Nintendo will pay a $40 million fine for faulty Joy-Cons",
+      "source": "Engadget",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:16:11.738Z"
+    },
+    {
+      "article_id": "ad1cec930d1df1efa9f5d36da92a46741df536d3",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "在1997年的Visual Studio中制作游戏",
+      "source": "www.youtube.com",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:16:24.017Z"
+    },
+    {
+      "article_id": "514a7d9b008bc988e35cab1f2f470218d4292498",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Making a game in Visual Studio from 1997",
+      "source": "Lobsters (技术社区)",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:16:31.522Z"
+    },
+    {
+      "article_id": "98c37fe61728933e6c715d4fac5860755e438030",
+      "label": "watch",
+      "reasons": [
+        "market_signal"
+      ],
+      "notes": "",
+      "title": "The developer of the Silent Hill 2 remake is releasing a Star Trek horror game",
+      "source": "Engadget",
+      "suggested_trend_bucket": "watch_candidate",
+      "system_score": 63,
+      "updated_at": "2026-07-31T07:26:16.697Z"
+    },
+    {
+      "article_id": "c2e79af51c86fcb70b4a0099069dea7281b05c7e",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Rockstar could be following the Red Dead Redemption 2 playbook with GTA 6's release — here's what that could mean for trailer 3, the gameplay reveal, and more",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -50,
+      "updated_at": "2026-07-31T07:26:52.034Z"
+    },
+    {
+      "article_id": "d02ff8476caf97454f478b7df2cbb57ab057c5a2",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "New GTA 6 details may confirm players can switch between Jason and Lucia and complete missions as a duo, encounter random world events, and more",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -32,
+      "updated_at": "2026-07-31T07:26:54.801Z"
+    },
+    {
+      "article_id": "8c041ecdbcc7357ab959316f4704f4f54ef88a47",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Show HN: Built a daily game where you sort historical events chronologically",
+      "source": "hackernews",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -30,
+      "updated_at": "2026-07-31T07:27:04.354Z"
+    },
+    {
+      "article_id": "5961fc7d1026a9d386ff4134af5c3ee33bb2af2c",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "This genius dog bowl makes a game out of mealtime and prevents my dog from eating too quickly",
+      "source": "Business Insider",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -30,
+      "updated_at": "2026-07-31T07:27:39.505Z"
+    },
+    {
+      "article_id": "efd0624aa317ae002ecf7f703245160f19bff174",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Games Done Quick will host its first ever event in Europe",
+      "source": "Engadget",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -30,
+      "updated_at": "2026-07-31T07:27:43.113Z"
+    },
+    {
+      "article_id": "a1b82ff36e5a75b341a302aa9b29dff8365a9770",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Show HN: 一款面向程序员的文字解谜网页游戏",
+      "source": "7coderwords.kenamick.com",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -30,
+      "updated_at": "2026-07-31T07:28:16.322Z"
+    },
+    {
+      "article_id": "d6f465a4d01819b6c697b76de680d5f135bfadb8",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Apple plans to broadcast an MLS game on Saturday shot entirely on 15 iPhone 17 Pros, the first major live sports event to be captured using only smartphones (Todd Spangler/Variety)",
+      "source": "Techmeme",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -30,
+      "updated_at": "2026-07-31T07:30:29.098Z"
+    },
+    {
+      "article_id": "0f32a4134fcc315c4c38c376c5999039005b64cd",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "The Other Major Soccer Event of 2026? The Shake-Up in the World of Video Games",
+      "source": "Wired",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -30,
+      "updated_at": "2026-07-31T07:30:31.425Z"
+    },
+    {
+      "article_id": "bf7dbb67416b7d0ef551361c0e3b02f206441338",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Summer Game Fest 2026 roundup: All the shows, trailers, news and reviews",
+      "source": "Engadget",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -30,
+      "updated_at": "2026-07-31T07:30:36.729Z"
+    },
+    {
+      "article_id": "86ca79db0077a3879280fabd9e09f453b0c0ceb5",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "A game where you're an OS and have to manage processes, memory and I/O events",
+      "source": "hackernews",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -30,
+      "updated_at": "2026-07-31T07:31:23.530Z"
+    },
+    {
+      "article_id": "f21cf989e8bcd72e995ea24c2df52033eaaabca9",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Fiji vs Wales Free Streams: How to watch Nations Championship 2026 game, TV Channels, Preview",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -30,
+      "updated_at": "2026-07-31T07:31:36.138Z"
+    },
+    {
+      "article_id": "0090048b9352b073138d1840bbb96bec50099803",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Argentina vs Scotland Free Streams: How to watch Nations Championship 2026 game, TV Channels, Preview",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -30,
+      "updated_at": "2026-07-31T07:31:38.330Z"
+    },
+    {
+      "article_id": "pokde::https://pokde.net/gaming/mobile/free-fire-daybreak-anime-spring-2027",
+      "label": "watch",
+      "reasons": [
+        "market_signal"
+      ],
+      "notes": "",
+      "title": "Free Fire Daybreak Is The Anime Adaptation Of The Namesake Mobile Game, Premieres Spring 2027",
+      "source": "Pokde.Net",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -30,
+      "updated_at": "2026-07-31T07:31:54.257Z"
+    },
+    {
+      "article_id": "techurls::https://www.buzzfeed.com/mateirosca/andrew-tate-jail-pretrial-allegations",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "“An Extremely Dangerous Game”: How Andrew Tate’s Recent Behavior May Be Doing Him More Harm Than Good",
+      "source": "BuzzFeed News",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:32:00.914Z"
+    },
+    {
+      "article_id": "e30ce25e82a104f0de433bf4985701b01da57bae",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Great at gaming? US air traffic control wants you to apply",
+      "source": "Hacker News · 24h最热",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:32:05.450Z"
+    },
+    {
+      "article_id": "a7c9135e0f1a1580f3ab13a5a2f3a0cb22f39e2b",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Saros reportedly 'truly excels' on PS5 Pro with its single 60fps 4K output mode and PSSR 2",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:32:33.353Z"
+    },
+    {
+      "article_id": "87612e0dae2eb02e9cac71490d04eaf0f1ee59bb",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "I hope Marathon's first sale gets more players to try the game — it's the most I've been consumed by a competitive FPS in a long time",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:38:04.994Z"
+    },
+    {
+      "article_id": "5cbd59778fe173080c609b3d074577b8be26c1f8",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Directive 8020 executive producer says the Turning Points system was added for players who 'want to keep everyone alive' but also for 'a big percentage of our hardcore fans' that will replay the game to get all endings",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:38:52.850Z"
+    },
+    {
+      "article_id": "07a0f776aa798532d20ad722945d26476589053b",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "GTA 6 desperately needs this one feature to give PC players a boost — and I can't believe I'm saying this, but it should take a gamer-friendly page from Ubisoft's book",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:39:31.761Z"
+    },
+    {
+      "article_id": "ecf5f35aec33ee2317264de9a5ee76950f08a96a",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "让 AI 来玩我的游戏——构建一个具有自主行为能力的测试框架以辅助游戏测试",
+      "source": "blog.jeffschomay.com",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:39:35.458Z"
+    },
+    {
+      "article_id": "e2a7c1f5987679c5d06c26748eece55a84453456",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "I haven’t played a Bond game since Goldeneye on the N64 — but 007 First Light could finally change that",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:40:08.305Z"
+    },
+    {
+      "article_id": "ee875613fe9f7775879d3fab30283123b140a4ae",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "I loved how many features this affordable gaming soundbar has, but audiophiles might want to look elsewhere",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:40:48.234Z"
+    },
+    {
+      "article_id": "180d23a2344bc498f0b56f1d9db59d13b75faa2c",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Game Pass additions for May include Subnautica 2 and Forza Horizon 6",
+      "source": "Engadget",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:40:59.362Z"
+    },
+    {
+      "article_id": "24fc4a35f6db09fdfdc875e42101664e9ce62450",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Senate to probe sports betting boom and risks to game integrity in May 20 hearing",
+      "source": "ReadWrite",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:41:02.210Z"
+    },
+    {
+      "article_id": "656ca6bbbfe8e41714da0ee7000640f96216e6f1",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "The game that makes me actually want to exercise",
+      "source": "The Verge",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:41:07.777Z"
+    },
+    {
+      "article_id": "a02ce42be37cd03355ba3fa8d121d261e609455f",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "I played my favorite game of all time on the PS Portal — here are 3 things I loved about the experience, and 3 things that could've been better",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:41:10.249Z"
+    },
+    {
+      "article_id": "1811ce460332d31a24022e482f3193b117690567",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "May's PS Plus Game Catalog additions include Red Dead Redemption 2 and Star Wars Outlaws",
+      "source": "Engadget",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:41:12.058Z"
+    },
+    {
+      "article_id": "2166a89f58439fa9e2fb2987a0cbcc0f01acc385",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "The Esports World Cup will reportedly move to Paris from Riyadh",
+      "source": "Engadget",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:41:20.201Z"
+    },
+    {
+      "article_id": "d51249ee1149a2e3039927d6a8bffde48eb7774f",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "As someone that sank over 100 hours into the first game, Subnautica 2 has lived up to my expectations — but there's one crucial element I want to see before I'm totally happy",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:41:28.625Z"
+    },
+    {
+      "article_id": "ac0f15a02ccfeab688c89806ecda89b03032d84c",
+      "label": "watch",
+      "reasons": [
+        "market_signal"
+      ],
+      "notes": "",
+      "title": "1047 Games' spiritual successor to Titanfall will reportedly be called Empulse",
+      "source": "Engadget",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:53:21.600Z"
+    },
+    {
+      "article_id": "fedc1fe4b9bce2c66d84b6aafc02be2700202b46",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "An Nvidia executive said that AI-generated résumés may already be gaming AI recruiters because 'AI likes to use AI'",
+      "source": "Business Insider",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:42:27.377Z"
+    },
+    {
+      "article_id": "946c04479d01a68dbf9e901f6f9b0b84126c26de",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "[Highlight] Jay Williams says he can’t root for the Thunder because of the foul baiting: “As a fan of the game, I just want to see the game respected. There are times where I watch OKC play, I don’t feel like they respect the process of the game.”",
+      "source": "Reddit (热门)",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:42:35.363Z"
+    },
+    {
+      "article_id": "2a5e74978c191b7f5e48a6d3cbcddfba58f2593b",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "'We wanted to make a new and unique story, where fans will recognize moments throughout as they're playing' — TT Games on creating a new adventure and how it squeezed decades of superhero history into Lego Batman: Legacy of the Dark Knight",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:42:37.929Z"
+    },
+    {
+      "article_id": "928426516f5144350249b0da9834116b518f83b4",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "My gaming phone’s coolest feature may be mostly cosmetic, but it's not all bad",
+      "source": "Android Police",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:42:41.291Z"
+    },
+    {
+      "article_id": "287cfb0647f04ed5a3901ce2f4e8182b1389478c",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Could you be a Fan of the Match this World Cup?  Grab a bag of Lay’s and you could win tickets to the FIFA World Cup  #NoLaysNoGame  @乐事官方账号  \n你会成为那个观赛的天选之子吗？买一包乐事FIFA世界杯限定薯片，就有机会赢取FIFA世界杯门票！ \n#一包乐事直达FIFA世界杯 #吃乐事看赛有乐事 #贝克汉姆",
+      "source": "抖音 · 体育榜",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:42:44.346Z"
+    },
+    {
+      "article_id": "d3268b9f420788244711ea03addf75363442a760",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Great fucking games BUT I WANT THE DOWNRIGHT UNHEARD OF, MYSTERIOUS, UNHINGED, FORGOTTEN GAMES",
+      "source": "Reddit (热门)",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:42:47.186Z"
+    },
+    {
+      "article_id": "3313105fbbad96f3738b40f405fb2a2500812c57",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "China executes a man called Xu Yao for killing Yoozoo Games founder Lin Qi in 2020; Lin reportedly sidelined Xu, who helped land the 3 Body Problem Netflix deal (Koh Ewe/BBC)",
+      "source": "Techmeme",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:42:50.450Z"
+    },
+    {
+      "article_id": "ad9a1bb2dfc8cd52a0eccbdafe63afff72244294",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "I got a free 007 First Light product key with my RTX 5090. I don't really game... Who wants it?",
+      "source": "Reddit (热门)",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:43:44.018Z"
+    },
+    {
+      "article_id": "04a8072ee135d93eca249169a06e0146127a52a5",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "This sound card could give gamers a competitive edge",
+      "source": "The Verge",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:44:03.881Z"
+    },
+    {
+      "article_id": "752f08ad0ba58375daf795aafd12fae159c0e32f",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "The Witcher 4 may not have a release date yet but here are the 7 features I want the game to have when it finally arrives",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:44:07.418Z"
+    },
+    {
+      "article_id": "b35c9677965ff3b4d29e1d5f9cbf931b4f377b7b",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Supercell, King, and Sybo warn that EU's Digital Fairness Act, requiring pop-ups showing real-world values of virtual currencies, could make games \"unplayable\" (Richard Milne/Financial Times)",
+      "source": "Techmeme",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:44:11.177Z"
+    },
+    {
+      "article_id": "cdbdc11b417574cc58d6735254c14055831f936e",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "‘We now own the IP’: 007 First Light sequels could face new villain as Amazon Gaming says it might publish future Bond games",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:44:14.018Z"
+    },
+    {
+      "article_id": "7ed04b3761814e2ead14bbea08bbdd3de4e8abcc",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Apple Arcade Adding Nine New Games, Including 'Family Feud Pocket'",
+      "source": "Mac Rumors",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:44:40.338Z"
+    },
+    {
+      "article_id": "18371aa18fc76e70c0be47e4c5d56c6e43f29ed3",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Sega wants Virtua Fighter Crossroads to be more than just another fighting game",
+      "source": "Engadget",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:44:46.697Z"
+    },
+    {
+      "article_id": "e30daadbf0219e386bca44bff804c632c034bb88",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Niantic Spatial says Pokémon Go data is \"not part of\" its deal with spatial AI company Vantor, after concerns that game data could be used for military drones (Kenneth Shepard/Kotaku)",
+      "source": "Techmeme",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:44:48.994Z"
+    },
+    {
+      "article_id": "65a7442a53db736456cbcb27215a44f6e411890e",
+      "label": "watch",
+      "reasons": [
+        "market_signal"
+      ],
+      "notes": "",
+      "title": "'The people have spoken': fans rejoice as Resident Evil Veronica hits a million wishlists on PS5 and PC just under a week after its announcement",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:46:10.937Z"
+    },
+    {
+      "article_id": "920a38041465768df9fdb0a67cc2af8e692bf876",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "The voice of 007 First Light's Greenway thinks players should watch On Her Majesty's Secret Service after finishing the game — 'Until Daniel Craig, it was a unique telling of a Bond adventure'",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:46:22.145Z"
+    },
+    {
+      "article_id": "a5af9821d5137da8062b55aea55ad173c6a15287",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "IO Interactive says 007 First Light was 'always' supposed to be an origin story — 'We wanted to take that risk and introduce a fresh Bond for the gamers'",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:46:27.921Z"
+    },
+    {
+      "article_id": "0e094e85458d5a037214f290caf66b5a7813c39b",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "Aliens: Fireteam Elite 2 game director says the game will have 'massive amounts of customization' — 'There's almost an infinite amount of ways to coordinate with your buds on how you want to kit up as a group'",
+      "source": "TechRadar",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:46:30.353Z"
+    },
+    {
+      "article_id": "485189a62c6ac3a9c40d73ccddf174a528b15d43",
+      "label": "exclude",
+      "reasons": [
+        "junk"
+      ],
+      "notes": "",
+      "title": "The game-winning ball from the Knicks' NBA Finals comeback is headed to auction — and could fetch millions",
+      "source": "Business Insider",
+      "suggested_trend_bucket": "exclude_candidate",
+      "system_score": -20,
+      "updated_at": "2026-07-31T07:46:43.273Z"
+    }
+  ]
+}

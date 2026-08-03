@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trend Review Labelling Tool</title>
+    <link rel="icon" href="./assets/logo.svg" type="image/svg+xml" />
+    <style>
+      :root {
+        --bg: #f7f7f3;
+        --surface: #ffffff;
+        --surface-soft: #f0f3f7;
+        --ink: #171717;
+        --muted: #686f7a;
+        --line: #d9dee6;
+        --blue: #1d4ed8;
+        --green: #047857;
+        --amber: #b45309;
+        --red: #b91c1c;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--bg);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      .shell {
+        width: min(1180px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 28px 0 40px;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        align-items: flex-start;
+        margin-bottom: 18px;
+      }
+
+      h1 {
+        margin: 0 0 6px;
+        font-size: clamp(28px, 4vw, 42px);
+        letter-spacing: 0;
+      }
+
+      .subtitle {
+        margin: 0;
+        color: var(--muted);
+        max-width: 760px;
+        line-height: 1.45;
+      }
+
+      .summary {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(96px, 1fr));
+        gap: 8px;
+        min-width: min(440px, 100%);
+      }
+
+      .stat {
+        border: 1px solid var(--line);
+        background: var(--surface);
+        border-radius: 8px;
+        padding: 10px 12px;
+      }
+
+      .stat span {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .stat strong {
+        display: block;
+        margin-top: 4px;
+        font-size: 20px;
+      }
+
+      .toolbar {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        padding: 12px;
+        margin-bottom: 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(10px);
+      }
+
+      .toolbar input[type="search"],
+      .toolbar select {
+        min-height: 38px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+        padding: 0 10px;
+      }
+
+      .toolbar input[type="search"] {
+        flex: 1 1 260px;
+      }
+
+      .toolbar button,
+      .file-button {
+        min-height: 38px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+        padding: 0 12px;
+        cursor: pointer;
+      }
+
+      .toolbar button.primary {
+        border-color: var(--blue);
+        background: var(--blue);
+        color: #fff;
+      }
+
+      .file-button input {
+        display: none;
+      }
+
+      .notice {
+        display: none;
+        margin-bottom: 14px;
+        padding: 12px;
+        border: 1px solid #f2c078;
+        border-radius: 8px;
+        background: #fff7ed;
+        color: #7c2d12;
+      }
+
+      .notice.visible {
+        display: block;
+      }
+
+      .review-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+        padding: 14px;
+      }
+
+      .card-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .title {
+        margin: 0;
+        font-size: 17px;
+        line-height: 1.35;
+      }
+
+      .title-en {
+        margin: 6px 0 0;
+        color: var(--muted);
+        line-height: 1.35;
+      }
+
+      .meta,
+      .system {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 10px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 24px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 2px 8px;
+        color: var(--muted);
+        background: var(--surface-soft);
+        font-size: 12px;
+      }
+
+      .score {
+        flex: 0 0 auto;
+        min-width: 64px;
+        text-align: right;
+        color: var(--blue);
+        font-weight: 700;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 14px;
+      }
+
+      .label-button,
+      .chip {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        min-height: 34px;
+        padding: 0 10px;
+        cursor: pointer;
+      }
+
+      .label-button.include.active {
+        border-color: var(--green);
+        background: #ecfdf5;
+        color: var(--green);
+      }
+
+      .label-button.watch.active {
+        border-color: var(--amber);
+        background: #fffbeb;
+        color: var(--amber);
+      }
+
+      .label-button.exclude.active {
+        border-color: var(--red);
+        background: #fef2f2;
+        color: var(--red);
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 10px;
+      }
+
+      .chip {
+        min-height: 30px;
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .chip.active {
+        border-color: var(--blue);
+        background: #eff6ff;
+        color: var(--blue);
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 56px;
+        resize: vertical;
+        margin-top: 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 8px 10px;
+      }
+
+      .empty {
+        padding: 28px;
+        border: 1px dashed var(--line);
+        border-radius: 8px;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      @media (max-width: 860px) {
+        .topbar {
+          display: block;
+        }
+
+        .summary {
+          grid-template-columns: repeat(2, 1fr);
+          margin-top: 16px;
+        }
+
+        .card-head {
+          display: block;
+        }
+
+        .score {
+          margin-top: 8px;
+          text-align: left;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <h1>Trend Review Lab</h1>
+          <p class="subtitle">
+            Label current Game News Radar candidates for trend relevance. Labels stay in this browser until exported.
+          </p>
+        </div>
+        <section class="summary" aria-label="Review progress">
+          <div class="stat"><span>Total</span><strong id="totalCount">0</strong></div>
+          <div class="stat"><span>Labeled</span><strong id="labeledCount">0</strong></div>
+          <div class="stat"><span>Visible</span><strong id="visibleCount">0</strong></div>
+          <div class="stat"><span>Progress</span><strong id="progressPct">0%</strong></div>
+        </section>
+      </header>
+
+      <section class="toolbar" aria-label="Review controls">
+        <input type="search" id="searchInput" placeholder="Search title, source, reason" />
+        <select id="labelFilter" aria-label="Label filter">
+          <option value="all">All</option>
+          <option value="unlabeled">Unlabeled</option>
+          <option value="include">Include</option>
+          <option value="watch">Watch</option>
+          <option value="exclude">Exclude</option>
+        </select>
+        <select id="bucketFilter" aria-label="System bucket filter">
+          <option value="all">All buckets</option>
+          <option value="include_candidate">Include candidates</option>
+          <option value="watch_candidate">Watch candidates</option>
+          <option value="exclude_candidate">Exclude candidates</option>
+        </select>
+        <select id="laneFilter" aria-label="Review lane filter">
+          <option value="all">All lanes</option>
+          <option value="future_release">Future Game Releases</option>
+          <option value="industry_trend">Industry Trends</option>
+          <option value="reject_candidate">Reject candidates</option>
+        </select>
+        <label class="file-button">
+          Load JSON
+          <input id="fileInput" type="file" accept="application/json,.json" />
+        </label>
+        <button id="clearVisibleButton" type="button">Clear Visible</button>
+        <button id="exportButton" class="primary" type="button">Export</button>
+      </section>
+
+      <div id="loadNotice" class="notice">
+        Could not auto-load the training JSON. Use Load JSON and choose data/training/trend_review_training_round2.json.
+      </div>
+
+      <section id="reviewList" class="review-list" aria-label="Trend review items">
+        <div class="empty">Loading review items...</div>
+      </section>
+    </main>
+
+    <script src="./assets/review_trends.js"></script>
+  </body>
+</html>
