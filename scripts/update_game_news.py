@@ -29,10 +29,12 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
+from difflib import SequenceMatcher
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote, urlencode
@@ -48,6 +50,7 @@ from game_news_classify import (  # noqa: E402
     dedupe_by_title,
     event_time_str,
     is_junk,
+    score_hot_news,
 )
 from game_sources import DIRECT_RSS_SOURCES  # noqa: E402
 from rsshub_sources import RSSHUB_BRIDGE_SOURCES  # noqa: E402
@@ -69,6 +72,16 @@ except ImportError:  # pragma: no cover
 
 DEFAULT_RETENTION_DAYS = 110
 DEFAULT_TRANSLATE_MAX_NEW = 800  # ~60s/run in testing; backfills the historical backlog in ~1-2 weeks
+HOT_NEWS_LIMIT = 120
+HOT_NEWS_RECENT_DAYS = 7
+HOT_NEWS_WIDE_DAYS = 30
+GAME_STORY_CLUSTER_LIMIT = 80
+GAME_STORY_CLUSTER_RECENT_DAYS = 30
+DIRECT_SOURCE_TYPES = {
+    source["site_id"]: ("dedicated_game_media" if source.get("dedicated", False) else "tech_portal")
+    for source in DIRECT_RSS_SOURCES
+}
+RSSHUB_SOURCE_TYPES = {source["site_id"]: "dedicated_game_media" for source in RSSHUB_BRIDGE_SOURCES}
 
 
 def translate_to_en(session: requests.Session, text: str) -> str | None:
@@ -114,6 +127,55 @@ GENERIC_TASKS = [
     ("newsnow", "NewsNow", fetch_newsnow),
     ("zeli", "Zeli", fetch_zeli),
 ]
+GENERIC_SOURCE_TYPES = {site_id: "aggregator" for site_id, _site_name, _fn in GENERIC_TASKS}
+
+SOURCE_REPUTATION = {
+    "rpg site": 1.0,
+    "gamespot": 0.95,
+    "gamespot asia": 0.95,
+    "ign sea": 0.9,
+    "ign southeast asia": 0.9,
+    "gamesindustry.biz": 0.9,
+    "pc gamer": 0.85,
+    "gamesradar+": 0.8,
+    "polygon": 0.8,
+    "rpgfan": 0.8,
+    "game rant": 0.7,
+    "gamingonphone": 0.7,
+    "pocketgamer.biz": 0.7,
+}
+SOURCE_TYPE_QUALITY = {"dedicated_game_media": 3, "business_industry_media": 3, "regional_game_media": 2.7, "mixed_portal": 2, "tech_portal": 2, "aggregator": 1}
+SOURCE_TIER_LABELS = {
+    "major_gaming_media": "Major gaming media",
+    "regional_gaming_media": "Regional gaming media",
+    "business_industry_media": "Business / industry media",
+    "aggregator": "Aggregators",
+    "mixed_portal": "Mixed portals",
+}
+MAJOR_GAMING_MEDIA_IDS = {
+    "pcgamer",
+    "gamerant",
+    "gamesradar",
+    "polygon",
+    "shacknews",
+    "siliconera",
+    "pockettactics",
+    "ign_sea",
+    "rpgsite",
+    "gamespot_asia",
+    "gamingonphone",
+    "esports_net",
+    "dotesports",
+}
+BUSINESS_INDUSTRY_SOURCE_IDS = {
+    "gamesindustry",
+    "gamesindustry_biz",
+    "pocketgamer_biz",
+    "pocketgamerbiz",
+    "mobilegamer_biz",
+    "virtuos_games",
+}
+BUSINESS_INDUSTRY_SOURCE_RE = re.compile(r"gamesindustry\.biz|pocketgamer\.biz|mobilegamer\.biz|gameindustry|virtuos", re.I)
 
 
 def fetch_rss_source(session: requests.Session, source: dict[str, Any], now: datetime) -> list[RawItem]:
@@ -147,6 +209,7 @@ def fetch_rss_source(session: requests.Session, source: dict[str, Any], now: dat
                 meta={
                     "region_override": source["region"],
                     "source_dedicated": source.get("dedicated", False),
+                    "source_type": "dedicated_game_media" if source.get("dedicated", False) else "tech_portal",
                     "ingestion_path": "direct_feed",
                 },
             )
@@ -203,10 +266,378 @@ def fetch_rsshub_bridge_source(session: requests.Session, source: dict[str, Any]
                 title=title,
                 url=url,
                 published_at=published,
-                meta={"region_override": source.get("region_override"), "ingestion_path": "rsshub_bridge"},
+                meta={
+                    "region_override": source.get("region_override"),
+                    "source_type": "dedicated_game_media",
+                    "ingestion_path": "rsshub_bridge",
+                },
             )
         )
     return out
+
+
+def parse_event_datetime(record: dict[str, Any]) -> datetime | None:
+    ts_str = event_time_str(record)
+    if not ts_str:
+        return None
+    try:
+        ts = datetime.fromisoformat(str(ts_str).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if ts.tzinfo is None:
+        ts = ts.replace(tzinfo=timezone.utc)
+    return ts
+
+
+def hot_news_recency_bucket(record: dict[str, Any], now: datetime) -> int:
+    ts = parse_event_datetime(record)
+    if ts is None:
+        return 0
+    age_days = max(0.0, (now - ts).total_seconds() / 86_400)
+    if age_days <= HOT_NEWS_RECENT_DAYS:
+        return 2
+    if age_days <= HOT_NEWS_WIDE_DAYS:
+        return 1
+    return 0
+
+
+def hot_news_sort_key(record: dict[str, Any], now: datetime) -> tuple[int, int, float]:
+    ts = parse_event_datetime(record)
+    ts_value = ts.timestamp() if ts else 0.0
+    return (hot_news_recency_bucket(record, now), int(record.get("hot_score") or 0), ts_value)
+
+
+def infer_source_type(record: dict[str, Any]) -> str:
+    existing = record.get("source_type")
+    if existing:
+        return str(existing)
+    site_id = str(record.get("site_id") or "")
+    if site_id in DIRECT_SOURCE_TYPES:
+        return DIRECT_SOURCE_TYPES[site_id]
+    if site_id in RSSHUB_SOURCE_TYPES:
+        return RSSHUB_SOURCE_TYPES[site_id]
+    if site_id in GENERIC_SOURCE_TYPES:
+        return GENERIC_SOURCE_TYPES[site_id]
+    if record.get("source_dedicated"):
+        return "dedicated_game_media"
+    if record.get("ingestion_path") == "direct_feed":
+        return "tech_portal"
+    return "aggregator"
+
+
+def infer_source_tier(record: dict[str, Any]) -> str:
+    existing = record.get("source_tier")
+    if existing in SOURCE_TIER_LABELS:
+        return str(existing)
+    site_id = str(record.get("site_id") or "")
+    source_name = str(record.get("source") or record.get("site_name") or "")
+    if site_id in GENERIC_SOURCE_TYPES:
+        return "aggregator"
+    if site_id in BUSINESS_INDUSTRY_SOURCE_IDS or BUSINESS_INDUSTRY_SOURCE_RE.search(source_name):
+        return "business_industry_media"
+    if site_id in MAJOR_GAMING_MEDIA_IDS:
+        return "major_gaming_media"
+    source_type = infer_source_type(record)
+    if source_type == "dedicated_game_media":
+        region = str(record.get("region_override") or record.get("region") or "")
+        return "regional_gaming_media" if region not in {"GLOBAL", "OTHERS", ""} else "major_gaming_media"
+    if source_type == "aggregator":
+        return "aggregator"
+    return "mixed_portal"
+
+
+def add_source_tier_fields(record: dict[str, Any]) -> dict[str, Any]:
+    out = dict(record)
+    tier = infer_source_tier(out)
+    out["source_tier"] = tier
+    out["source_tier_label"] = SOURCE_TIER_LABELS[tier]
+    return out
+
+
+def normalize_story_text(text: str) -> str:
+    return re.sub(r"\s+", " ", re.sub(r"[^\w]+", " ", str(text).lower())).strip()
+
+
+def load_game_rank_entries(path: Path | None = None, limit: int = 1000) -> list[dict[str, Any]]:
+    path = path or (REPO_ROOT / "data" / "game-rank-index.json")
+    payload = load_json(path)
+    if not payload:
+        return []
+    entries = []
+    for entry in payload.get("entries", [])[:limit]:
+        keys = [entry.get("key"), entry.get("alt"), entry.get("name")]
+        normalized_keys = [normalize_story_text(str(key)) for key in keys if key]
+        normalized_keys = [key for key in normalized_keys if len(key) >= 4]
+        if not normalized_keys:
+            continue
+        entries.append({**entry, "normalized_keys": normalized_keys})
+    entries.sort(key=lambda entry: max(len(key) for key in entry["normalized_keys"]), reverse=True)
+    return entries
+
+
+def match_known_game_name(title: str, rank_entries: list[dict[str, Any]]) -> str | None:
+    normalized = normalize_story_text(title)
+    if not normalized:
+        return None
+    for entry in rank_entries:
+        for key in entry["normalized_keys"]:
+            if re.search(rf"(?<!\w){re.escape(key)}(?!\w)", normalized):
+                return str(entry.get("name") or key)
+    return None
+
+
+def known_game_is_subject(title: str, game_name: str) -> bool:
+    normalized_title = normalize_story_text(title)
+    normalized_game = normalize_story_text(game_name)
+    if not normalized_title or not normalized_game:
+        return False
+    if normalized_title.startswith(f"{normalized_game} "):
+        return True
+    subject_patterns = [
+        rf"(?<!\w){re.escape(normalized_game)}(?!\w).{{0,80}}\b(?:launch|release|released|trailer|gameplay|"
+        rf"showcase|announced|revealed|pre registration|pre order|beta|early access|shutdown|delisted|"
+        rf"tournament|championship|qualifier)\b",
+        rf"\b(?:launch|release|released|trailer|gameplay|showcase|announced|revealed|coming to|pre registration|"
+        rf"pre order|beta|early access).{{0,80}}(?<!\w){re.escape(normalized_game)}(?!\w)",
+    ]
+    if any(re.search(pattern, normalized_title) for pattern in subject_patterns):
+        return True
+    broad_context = re.search(
+        r"unreal engine|unreal editor|uefn|engine 6|claude|gemini|developer policy|subscription|"
+        r"publishing games|app store|google play|steam business|earnings|revenue|layoffs?|acquisition|funding",
+        normalized_title,
+    )
+    return not broad_context
+
+
+def extract_quoted_game_name(title: str) -> str | None:
+    quote_patterns = [
+        r'"([^"]{3,80})"',
+        r"'([^']{3,80})'",
+        r"“([^”]{3,80})”",
+        r"‘([^’]{3,80})’",
+        r"《([^》]{3,80})》",
+        r"「([^」]{3,80})」",
+        r"『([^』]{3,80})』",
+        r"【([^】]{3,80})】",
+    ]
+    for pattern in quote_patterns:
+        match = re.search(pattern, title)
+        if match:
+            candidate = match.group(1).strip().strip(":-–—")
+            if (
+                len(candidate.split()) <= 6
+                and re.search(r"[A-Z0-9]", candidate)
+                and not re.search(r"\b(why|how|what|when|where|this|that|still|only|new|basically)\b", candidate, re.I)
+                and not re.search(r"[,.!?;:]", candidate)
+            ):
+                return candidate
+    return None
+
+
+def extract_prefix_game_name(title: str) -> str | None:
+    pattern = re.compile(
+        r"^(.{3,80}?)(?:\s+(?:launch(?:es|ed|ing)?|gets?|sets?|confirms?|announces?|reveals?|opens?|"
+        r"trailer|gameplay|showcase|is now available|available now|out now|coming to|pre[- ]?registration|"
+        r"release date|closed beta|open beta|early access|delayed|postponed|shutdown|shut down|delisted))\b",
+        re.I,
+    )
+    match = pattern.search(title)
+    if not match:
+        return None
+    candidate = re.sub(r"^(new|the|a|an)\s+", "", match.group(1).strip().strip(":-–—"), flags=re.I)
+    candidate = re.sub(r"\s+(officially|finally|reportedly)$", "", candidate, flags=re.I).strip()
+    if len(candidate) < 3 or re.search(
+        r"\b(report|rumou?r|subreddit|fans?|devs?|developers?|company|studio|publisher|market|industry|"
+        r"revenue|earnings|layoffs?|esports world cup|world championship)\b",
+        candidate,
+        re.I,
+    ):
+        return None
+    if re.fullmatch(
+        r"(nintendo|sony|microsoft|xbox|playstation|tencent|netease|krafton|nexon|hoyoverse|riot|"
+        r"roblox|ubisoft|electronic arts|ea|take[- ]two|epic games|valve|sega|capcom|konami)",
+        candidate,
+        re.I,
+    ):
+        return None
+    if len(candidate.split()) > 8:
+        return None
+    return candidate
+
+
+def extract_story_topic_key(item: dict[str, Any]) -> tuple[str, str] | None:
+    title = normalize_story_text(str(item.get("title_en") or item.get("title") or ""))
+    if "esports world cup" in title:
+        return ("Esports World Cup", "esports world cup")
+    if "world championship" in title and "esports" in title:
+        return ("Esports World Championship", "esports world championship")
+    if "xbox" in title and "revenue" in title:
+        return ("Xbox revenue", "xbox revenue")
+    if "xbox" in title and re.search(r"\blayoffs?\b|cut|closure|closing", title):
+        return ("Xbox layoffs", "xbox layoffs")
+    if "microsoft" in title and re.search(r"\bq[1-4]\b|earnings|revenue", title):
+        return ("Microsoft earnings", "microsoft earnings")
+    if "unreal engine" in title or "unreal editor" in title or "uefn" in title:
+        return ("Unreal Engine", "unreal engine")
+    if "roblox" in title and re.search(r"developer|subscription|publishing|kids|select accounts|policy", title):
+        return ("Roblox platform policy", "roblox platform policy")
+    if "epic games" in title and "lore" in title and "version control" in title:
+        return ("Epic Games Lore version control", "epic games lore version control")
+    if "pokemon" in title and "best selling" in title:
+        return ("Pokemon sales", "pokemon sales")
+    return None
+
+
+def story_signature(title: str) -> str:
+    normalized = normalize_story_text(title)
+    tokens = [
+        token for token in normalized.split()
+        if token not in {"the", "a", "an", "to", "for", "of", "and", "on", "in", "with", "is", "now"}
+    ]
+    return " ".join(tokens[:10])
+
+
+def detect_game_name(item: dict[str, Any], rank_entries: list[dict[str, Any]]) -> str | None:
+    title = f"{item.get('title_en') or ''} {item.get('title') or ''}".strip()
+    quoted = extract_quoted_game_name(title)
+    if quoted:
+        return quoted
+    known = match_known_game_name(title, rank_entries)
+    if known and known_game_is_subject(title, known):
+        return known
+    return extract_prefix_game_name(title)
+
+
+def cluster_key_for_item(item: dict[str, Any], rank_entries: list[dict[str, Any]]) -> tuple[str, str, str | None]:
+    section = str(item.get("radar_section") or "other")
+    topic = extract_story_topic_key(item)
+    if topic:
+        _topic_name, topic_key = topic
+        return ("story", topic_key, None)
+    game_name = detect_game_name(item, rank_entries)
+    if game_name:
+        return ("game", normalize_story_text(game_name), game_name)
+    return ("title", story_signature(str(item.get("title_en") or item.get("title") or "")), None)
+
+
+def source_quality(item: dict[str, Any]) -> float:
+    source_name = normalize_story_text(str(item.get("source") or item.get("site_name") or item.get("site_id") or ""))
+    reputation = 0.0
+    for name, score in SOURCE_REPUTATION.items():
+        if normalize_story_text(name) in source_name:
+            reputation = max(reputation, score)
+    tier_quality = {
+        "major_gaming_media": 3.4,
+        "business_industry_media": 3.3,
+        "regional_gaming_media": 3.0,
+        "mixed_portal": 2.0,
+        "aggregator": 1.0,
+    }
+    tier = str(item.get("source_tier") or infer_source_tier(item))
+    source_type = SOURCE_TYPE_QUALITY.get(str(item.get("source_type") or "aggregator"), 1)
+    return max(tier_quality.get(tier, 1.0), source_type) + reputation
+
+
+def cluster_main_item_sort_key(item: dict[str, Any]) -> tuple[float, int, float]:
+    ts = parse_event_datetime(item)
+    return (source_quality(item), int(item.get("hot_score") or 0), ts.timestamp() if ts else 0.0)
+
+
+def cluster_score(main_item: dict[str, Any], items: list[dict[str, Any]]) -> tuple[int, list[str]]:
+    sources = {str(item.get("source") or item.get("site_name") or item.get("site_id") or "") for item in items}
+    regions = {str(item.get("region") or "") for item in items if item.get("region")}
+    section = str(main_item.get("radar_section") or "other")
+    score = int(main_item.get("hot_score") or 0)
+    reasons = [f"main_hot_score={score}"]
+    if len(sources) > 1:
+        boost = min(30, (len(sources) - 1) * 10)
+        score += boost
+        reasons.append(f"source_count_boost={boost}")
+    if len(regions) > 1:
+        score += 8
+        reasons.append("multi_region_boost=8")
+    if section in {"game_releases", "industry_reports"}:
+        score += 10
+        reasons.append(f"section_boost={section}")
+    return score, reasons
+
+
+def build_game_story_clusters(
+    items: list[dict[str, Any]],
+    rank_entries: list[dict[str, Any]] | None = None,
+    limit: int = GAME_STORY_CLUSTER_LIMIT,
+    now: datetime | None = None,
+    recent_days: int = GAME_STORY_CLUSTER_RECENT_DAYS,
+) -> list[dict[str, Any]]:
+    rank_entries = rank_entries if rank_entries is not None else load_game_rank_entries()
+    groups: dict[tuple[str, str, str, str | None], list[dict[str, Any]]] = {}
+    singletons: list[dict[str, Any]] = []
+    for item in items:
+        section = str(item.get("radar_section") or "other")
+        if section == "other" or int(item.get("hot_score") or 0) <= 0:
+            continue
+        key_type, key_value, game_name = cluster_key_for_item(item, rank_entries)
+        if not key_value:
+            continue
+        key = (key_type, key_value, section, game_name)
+        groups.setdefault(key, []).append(item)
+
+    # Fallback near-duplicate merging for title-only singleton keys.
+    merged_groups: list[tuple[tuple[str, str, str, str | None], list[dict[str, Any]]]] = []
+    for key, group_items in groups.items():
+        if key[0] != "title" or len(group_items) > 1:
+            merged_groups.append((key, group_items))
+            continue
+        item = group_items[0]
+        signature = key[1]
+        merged = False
+        for existing_key, existing_items in merged_groups:
+            if existing_key[0] == "title" and existing_key[2] == key[2]:
+                ratio = SequenceMatcher(None, signature, existing_key[1]).ratio()
+                if ratio >= 0.86:
+                    existing_items.append(item)
+                    merged = True
+                    break
+        if not merged:
+            singletons.append(item)
+            merged_groups.append((key, group_items))
+
+    clusters = []
+    for index, (key, group_items) in enumerate(merged_groups, 1):
+        if len(group_items) < 2:
+            continue
+        if now is not None:
+            event_times = [parse_event_datetime(item) for item in group_items]
+            event_times = [ts for ts in event_times if ts is not None]
+            if not event_times or max(event_times) < now - timedelta(days=recent_days):
+                continue
+        main_item = max(group_items, key=cluster_main_item_sort_key)
+        sources = sorted({
+            str(item.get("source") or item.get("site_name") or item.get("site_id") or "")
+            for item in group_items
+            if item.get("source") or item.get("site_name") or item.get("site_id")
+        })
+        if len(sources) < 2:
+            continue
+        score, reasons = cluster_score(main_item, group_items)
+        section = str(main_item.get("radar_section") or key[2])
+        clusters.append(
+            {
+                "cluster_id": f"{section}:{key[0]}:{key[1]}",
+                "game_name": key[3],
+                "story_type": section,
+                "radar_section": section,
+                "main_item": main_item,
+                "items": sorted(group_items, key=event_time_str, reverse=True),
+                "source_count": len(sources),
+                "sources": sources,
+                "cluster_score": score,
+                "cluster_reasons": reasons,
+            }
+        )
+    clusters.sort(key=lambda cluster: (cluster["cluster_score"], event_time_str(cluster["main_item"])), reverse=True)
+    return clusters[:limit]
 
 
 def run_all_fetchers(now: datetime) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
@@ -249,6 +680,7 @@ def run_all_fetchers(now: datetime) -> tuple[list[dict[str, Any]], list[dict[str
                         "published_at": item.published_at.isoformat() if item.published_at else None,
                         "region_override": item.meta.get("region_override"),
                         "source_dedicated": item.meta.get("source_dedicated", False),
+                        "source_type": item.meta.get("source_type", "aggregator"),
                         "ingestion_path": item.meta.get("ingestion_path", "scraper"),
                     }
                 )
@@ -385,9 +817,32 @@ def build(
     translated_count = translate_new_titles(archive, translate_max_new)
     print(f"Translated {translated_count} new title(s) to English", file=sys.stderr)
 
+    for record in archive.values():
+        record["source_type"] = infer_source_type(record)
+        record.update(add_source_tier_fields(record))
+
     kept = [classify_and_tag(record) for record in archive.values() if not is_junk(record)]
     kept.sort(key=event_time_str, reverse=True)
     kept, duplicate_count = dedupe_by_title(kept)
+
+    hot_candidates: list[dict[str, Any]] = []
+    cluster_candidates: list[dict[str, Any]] = []
+    for item in kept:
+        hot_meta = score_hot_news(item)
+        hot_item = dict(item)
+        if hot_meta is not None:
+            hot_item.update(hot_meta)
+        else:
+            hot_item["hot_score"] = 0
+            hot_item["hot_reasons"] = []
+        hot_item["hot_recency_bucket"] = hot_news_recency_bucket(hot_item, now)
+        if hot_meta is not None:
+            hot_candidates.append(hot_item)
+        if hot_meta is not None and int(hot_item.get("hot_score") or 0) > 0:
+            cluster_candidates.append(hot_item)
+    hot_candidates.sort(key=lambda item: hot_news_sort_key(item, now), reverse=True)
+    game_story_clusters = build_game_story_clusters(cluster_candidates, now=now)
+    hot_news = hot_candidates[: min(HOT_NEWS_LIMIT, max(0, len(kept) - 1))]
 
     by_region = {code: 0 for code in REGION_ORDER}
     for item in kept:
@@ -398,10 +853,12 @@ def build(
         "generated_at": now.isoformat(),
         "generated_note": (
             f"Live pipeline (scripts/update_game_news.py), rolling {retention_days}-day window. "
-            "Ranking is recency-only as a first pass."
+            "Full feed is recency-sorted; hot_news is deterministic market-news scoring."
         ),
         "retention_days": retention_days,
         "total_items_kept": len(kept),
+        "total_hot_news": len(hot_news),
+        "total_game_story_clusters": len(game_story_clusters),
         "dropped_as_duplicate": duplicate_count,
         "by_region": by_region,
         "source_health": {
@@ -409,6 +866,8 @@ def build(
             "total_count": len(statuses),
             "sources": statuses,
         },
+        "game_story_clusters": game_story_clusters,
+        "hot_news": hot_news,
         "items": kept,
     }
 

@@ -9,10 +9,11 @@
 // first successful run. Kept deliberately separate from assets/app.js so
 // this page can iterate without risking the AI News page.
 
-const REPO_SLUG = "DarylWong-PlayPark/ai-news-radar";
+const REPO_SLUG = "ShaunaYong-PlayPark/ai-news-radar";
 const LIVE_DATA_URL = `https://raw.githubusercontent.com/${REPO_SLUG}/game-data/data/game-news.json`;
 const FALLBACK_DATA_URL = "./data/game-news.json";
 const ST_RANK_URL = "./data/game-rank-index.json";
+const LOCAL_PREVIEW_HOSTS = new Set(["localhost", "127.0.0.1", "::1"]);
 const REGION_LABELS = {
   ALL: "Hot",
   TH: "Thailand",
@@ -27,53 +28,33 @@ const REGION_LABELS = {
   OTHERS: "Others",
   MISC: "Misc",
 };
-const HOT_LIMIT = 200;
-
-// Mirrors scripts/game_sources.py's dedicated-site list plus the broad
-// "what's trending" scrapers reused from update_news.py. Kept in sync by
-// hand today; revisit if this drifts (e.g. serve site->type from the data
-// payload itself instead of duplicating the map client-side).
-const SOURCE_TYPE_MAP = {
-  gamingph: "dedicated_game_media",
-  gamingpinas: "dedicated_game_media",
-  gamingdose: "dedicated_game_media",
-  gamestation_id: "dedicated_game_media",
-  gamebrott: "dedicated_game_media",
-  gamelade: "dedicated_game_media",
-  gnn_tw: "dedicated_game_media",
-  pcgamer: "dedicated_game_media",
-  gamerant: "dedicated_game_media",
-  gamesradar: "dedicated_game_media",
-  polygon: "dedicated_game_media",
-  shacknews: "dedicated_game_media",
-  siliconera: "dedicated_game_media",
-  pockettactics: "dedicated_game_media",
-  rsshub_riotgames: "dedicated_game_media",
-  rsshub_scoga: "dedicated_game_media",
-  rsshub_zynga: "dedicated_game_media",
-  pokde: "tech_portal",
-  mothership_sg: "tech_portal",
-  siakapkeli: "tech_portal",
-  medcom: "tech_portal",
-  genmuda: "tech_portal",
-  kaorinusantara: "tech_portal",
-  inet_detik: "tech_portal",
-  kontan_lifestyle: "tech_portal",
-  mediaindonesia: "tech_portal",
-  liputan6: "tech_portal",
-  straitstimes: "tech_portal",
-  hardwarezone_sg: "tech_portal",
+const RADAR_SECTION_LABELS = {
+  industry_reports: "Industry reports",
+  game_releases: "Game releases",
+  game_announcements: "Game announcements",
+  other: "Other",
 };
-const DEFAULT_SOURCE_TYPE = "aggregator"; // tophub/iris/buzzing/techurls/newsnow/zeli/etc.
+const HOT_SECTION_ORDER = ["industry_reports", "game_announcements", "game_releases"];
+const SOURCE_TIER_LABELS = {
+  major_gaming_media: "Major gaming media",
+  regional_gaming_media: "Regional gaming media",
+  business_industry_media: "Business / industry media",
+  aggregator: "Aggregators",
+  mixed_portal: "Mixed portals",
+};
+const HOT_LIMIT = 200;
+const DEFAULT_SOURCE_TIER = "aggregator";
 
 const MONTH_ABBR = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 const state = {
   items: [],
+  hotItems: [],
+  clusters: [],
   byRegion: {},
   region: "ALL",
-  contentType: "",
-  sourceType: "",
+  radarSection: "",
+  sourceTier: "",
   specificSource: "",
   query: "",
   dateFrom: null, // Date, UTC start-of-day
@@ -107,8 +88,62 @@ function escapeHtml(str) {
   ));
 }
 
-function sourceTypeOf(item) {
-  return SOURCE_TYPE_MAP[item.site_id] || DEFAULT_SOURCE_TYPE;
+function sourceTierOf(item) {
+  return item.source_tier || DEFAULT_SOURCE_TIER;
+}
+
+function sourceTierLabel(value) {
+  return SOURCE_TIER_LABELS[value] || value || "Aggregators";
+}
+
+function clusterItems(cluster) {
+  return Array.isArray(cluster.items) ? cluster.items : [];
+}
+
+function clusterMainItem(cluster) {
+  return cluster.main_item || clusterItems(cluster)[0] || {};
+}
+
+function entryEventTime(entry) {
+  return entry.kind === "cluster" ? itemEventTime(clusterMainItem(entry.data)) : itemEventTime(entry.data);
+}
+
+function entryMatchesRegion(entry, region) {
+  if (region === "ALL") return true;
+  if (entry.kind === "item") return entry.data.region === region;
+  return clusterItems(entry.data).some((it) => it.region === region);
+}
+
+function entryMatchesRadarSection(entry, radarSection) {
+  if (!radarSection) return true;
+  return entryRadarSection(entry) === radarSection;
+}
+
+function entryRadarSection(entry) {
+  return entry.kind === "cluster" ? entry.data.radar_section : entry.data.radar_section;
+}
+
+function entryMatchesSourceTier(entry, sourceTier) {
+  if (!sourceTier) return true;
+  if (entry.kind === "item") return sourceTierOf(entry.data) === sourceTier;
+  return clusterItems(entry.data).some((it) => sourceTierOf(it) === sourceTier);
+}
+
+function entryMatchesSpecificSource(entry, siteId) {
+  if (!siteId) return true;
+  if (entry.kind === "item") return entry.data.site_id === siteId;
+  return clusterItems(entry.data).some((it) => it.site_id === siteId);
+}
+
+function entryMatchesDateRange(entry) {
+  if (!state.dateFrom || !state.dateTo) return true;
+  const t = entryEventTime(entry);
+  return t && t >= state.dateFrom && t <= state.dateTo;
+}
+
+function hotEntryScore(entry) {
+  if (entry.kind === "cluster") return Number(entry.data.cluster_score || 0);
+  return Number(entry.data.hot_score || 0);
 }
 
 // High-signal title phrases — fires when content_type is unset or generic.
@@ -135,46 +170,9 @@ function keywordBoost(item) {
 // Phase-1 signal score: pure client-side, no external API.
 // Components: recency (decays to 0 at 7 days) + source tier + event type
 // + keyword boost + Sensor Tower SEA revenue rank bonus (Phase 2).
-function signalScore(item) {
-  let score = 0;
-  const t = itemEventTime(item);
-  if (t) {
-    const hoursAgo = (Date.now() - t.getTime()) / 3_600_000;
-    score += Math.max(0, 1 - hoursAgo / 168); // 168h = 7 days
-  }
-  const stype = sourceTypeOf(item);
-  if (stype === "dedicated_game_media") score += 0.6;
-  else if (stype === "tech_portal") score += 0.3;
-  else score += 0.1;
-  const etype = item.content_type;
-  if (etype === "launch")              score += 0.4;
-  else if (etype === "business")       score += 0.3;
-  else if (etype === "update" || etype === "esports") score += 0.2;
-  score += keywordBoost(item);
-  score += state.stBonus.get(item.url) || 0;
-  score += state.multiSourceBonus.get(item.url) || 0;
-  return score;
-}
-
-function signalLevel(score) {
-  if (score >= 1.3) return 3;
-  if (score >= 0.7) return 2;
-  return 1;
-}
-
-function renderSignalBars(level) {
-  return (
-    `<span class="game-signal" data-level="${level}" aria-label="Signal level ${level} of 3" title="Signal ${level}/3 · recency + source tier + event type">` +
-    `<span class="game-signal-bar"></span>` +
-    `<span class="game-signal-bar"></span>` +
-    `<span class="game-signal-bar"></span>` +
-    `</span>`
-  );
-}
-
 // ── Sensor Tower rank bonus (Phase 2) ─────────────────────────────
 // Loads data/game-rank-index.json (generated by scripts/build_game_rank_index.py
-// from the Sensor Tower SEA6 export). Bonus is added to signalScore() at load
+// from the Sensor Tower SEA6 export). Hot ranking uses backend scores.
 // time — pre-computed once per item, not per-render.
 
 function stNormalize(s) {
@@ -273,8 +271,16 @@ function computeMultiSourceBonus(items, stEntries) {
 }
 
 // Templated "why it matters" — keyword-first, then content_type, then ST/multi-source fallback.
-function whyItMatters(item) {
+function hotReason(item) {
   const title = (item.title_en || item.title || "").toLowerCase();
+  const section = item.radar_section || "other";
+  const reasons = Array.isArray(item.hot_reasons) ? item.hot_reasons : [];
+
+  if (section === "industry_reports") return "Industry Reports: company, market, platform, or financial signal.";
+  if (section === "game_releases") return "Game Releases: launch, release timing, beta, availability, shutdown, or platform release signal.";
+  if (section === "game_announcements") return "Game Announcements: factual reveal, trailer, esports, roadmap, or major game update signal.";
+  if (reasons.includes("business")) return "Hot because backend scoring found a business or market signal.";
+  if (reasons.includes("platform_store")) return "Hot because backend scoring found a platform or store move.";
 
   if (["shuts down", "shut down", "shutting down", "bankruptcy", "bankrupt"].some((k) => title.includes(k)))
     return "Service ending — player base may be available for acquisition; rival exits the SEA market.";
@@ -419,12 +425,18 @@ function itemParts(item) {
   const contentType = item.content_type && item.content_type !== "general"
     ? `<span class="game-item-type" data-type="${escapeHtml(item.content_type)}">${escapeHtml(item.content_type)}</span>`
     : "";
-  return { mainTitle, originalLine, source, date, regionLabel, url, contentType };
+  const radarSection = item.radar_section
+    ? `<span class="game-item-type" data-type="${escapeHtml(item.radar_section)}">${escapeHtml(RADAR_SECTION_LABELS[item.radar_section] || item.radar_section)}</span>`
+    : "";
+  const sourceTier = `<span class="game-source-tier">${escapeHtml(sourceTierLabel(sourceTierOf(item)))}</span>`;
+  const hotScore = Number.isFinite(Number(item.hot_score))
+    ? `<span class="game-score-badge">Score ${escapeHtml(item.hot_score)}</span>`
+    : "";
+  return { mainTitle, originalLine, source, date, regionLabel, url, contentType, radarSection, sourceTier, hotScore };
 }
 
 function renderItem(item) {
-  const { mainTitle, originalLine, source, date, regionLabel, url, contentType } = itemParts(item);
-  const level = signalLevel(signalScore(item));
+  const { mainTitle, originalLine, source, date, regionLabel, url, radarSection, sourceTier, hotScore } = itemParts(item);
   return `
     <a class="game-item-row" href="${url}" target="_blank" rel="noopener noreferrer">
       <span class="game-item-title">${mainTitle}</span>
@@ -432,16 +444,17 @@ function renderItem(item) {
       <span class="game-item-meta">
         <span class="game-item-source">${source}</span>
         <span class="game-item-region">${regionLabel}</span>
-        ${contentType}
+        ${radarSection}
+        ${sourceTier}
+        ${hotScore}
         <span class="game-item-date">${date}</span>
-        ${renderSignalBars(level)}
       </span>
     </a>`;
 }
 
 function renderFeaturedItem(item) {
-  const { mainTitle, originalLine, source, date, regionLabel, url, contentType } = itemParts(item);
-  const why = escapeHtml(whyItMatters(item));
+  const { mainTitle, originalLine, source, date, regionLabel, url, radarSection, sourceTier, hotScore } = itemParts(item);
+  const why = escapeHtml(hotReason(item));
   const multiCount = state.multiSourceSources.get(item.url);
   const multiSourceBadge = multiCount
     ? `<span class="game-source-count">${multiCount} sources</span>`
@@ -454,11 +467,81 @@ function renderFeaturedItem(item) {
       <span class="game-item-meta">
         <span class="game-item-source">${source}</span>
         <span class="game-item-region">${regionLabel}</span>
-        ${contentType}
+        ${radarSection}
+        ${sourceTier}
         ${multiSourceBadge}
+        ${hotScore}
         <span class="game-item-date">${date}</span>
       </span>
     </a>`;
+}
+
+function renderClusterCard(cluster) {
+  const main = clusterMainItem(cluster);
+  const { mainTitle, originalLine, source, date, regionLabel, url, radarSection } = itemParts(main);
+  const gameName = cluster.game_name
+    ? `<span class="game-cluster-game">${escapeHtml(cluster.game_name)}</span>`
+    : "";
+  const sources = (cluster.sources || []).map(escapeHtml).join(", ");
+  const sourceCount = Number(cluster.source_count || clusterItems(cluster).length || 0);
+  const score = Number(cluster.cluster_score || 0);
+  const mainSource = escapeHtml(source || main.site_name || main.site_id || "Unknown source");
+  return `
+    <a class="game-item-featured game-cluster-card" href="${url}" target="_blank" rel="noopener noreferrer">
+      <span class="game-item-title">${mainTitle}</span>
+      ${originalLine}
+      <div class="game-cluster-summary">
+        ${gameName}
+        ${radarSection}
+        <span class="game-source-count">${sourceCount} sources</span>
+        <span class="game-score-badge">Cluster ${escapeHtml(score)}</span>
+      </div>
+      <span class="game-item-meta">
+        <span class="game-item-source">Main: ${mainSource}</span>
+        <span class="game-item-region">${regionLabel}</span>
+        <span class="game-item-date">${date}</span>
+      </span>
+      <div class="game-cluster-sources">${sources}</div>
+    </a>`;
+}
+
+function renderEntry(entry) {
+  return entry.kind === "cluster" ? renderClusterCard(entry.data) : renderItem(entry.data);
+}
+
+function renderFeaturedEntry(entry) {
+  return entry.kind === "cluster" ? renderClusterCard(entry.data) : renderFeaturedItem(entry.data);
+}
+
+function renderHotSection(section, entries) {
+  if (!entries.length) return "";
+  const label = RADAR_SECTION_LABELS[section] || section;
+  const clusters = entries.filter((entry) => entry.kind === "cluster")
+    .sort((a, b) => hotEntryScore(b) - hotEntryScore(a));
+  const items = entries.filter((entry) => entry.kind === "item")
+    .sort((a, b) => {
+      const scoreDiff = hotEntryScore(b) - hotEntryScore(a);
+      if (scoreDiff) return scoreDiff;
+      const aTime = entryEventTime(a);
+      const bTime = entryEventTime(b);
+      return (bTime ? bTime.getTime() : 0) - (aTime ? aTime.getTime() : 0);
+    });
+  const html = [...clusters, ...items].map(renderFeaturedEntry).join("");
+  return `
+    <section class="game-hot-section" data-section="${escapeHtml(section)}">
+      <div class="game-hot-section-head">
+        <h3>${escapeHtml(label)}</h3>
+        <span>${entries.length.toLocaleString()} stories</span>
+      </div>
+      ${html}
+    </section>`;
+}
+
+function renderHotSections(entries) {
+  return HOT_SECTION_ORDER
+    .map((section) => renderHotSection(section, entries.filter((entry) => entryRadarSection(entry) === section)))
+    .filter(Boolean)
+    .join("");
 }
 
 // Multi-word search: every space-separated term must appear somewhere in the
@@ -471,46 +554,84 @@ function matchesQuery(item, query) {
   return terms.every((term) => hay.includes(term));
 }
 
+function matchesEntryQuery(entry, query) {
+  if (!query) return true;
+  if (entry.kind === "item") return matchesQuery(entry.data, query);
+  const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+  const main = clusterMainItem(entry.data);
+  const hay = [
+    main.title,
+    main.title_en,
+    main.source,
+    entry.data.game_name,
+    entry.data.story_type,
+    entry.data.radar_section,
+    ...(entry.data.sources || []),
+  ].join(" ").toLowerCase();
+  return terms.every((term) => hay.includes(term));
+}
+
 function currentList() {
-  let list = state.items;
+  const usingHotView = state.region === "ALL";
+  const clusteredUrls = new Set();
+  state.clusters.forEach((cluster) => {
+    clusterItems(cluster).forEach((it) => {
+      if (it.url) clusteredUrls.add(it.url);
+    });
+  });
+  const hotStandalone = state.hotItems
+    .filter((it) => !clusteredUrls.has(it.url))
+    .map((it) => ({ kind: "item", data: it }));
+  let list = usingHotView && state.clusters.length
+    ? [
+        ...state.clusters.map((cluster) => ({ kind: "cluster", data: cluster })),
+        ...hotStandalone,
+      ]
+    : state.items.map((it) => ({ kind: "item", data: it }));
 
   if (state.region === "ALL") {
-    list = list.filter((it) => it.region !== "MISC"); // Misc is opt-in only, see the Misc tab
+    list = list.filter((entry) => (
+      entry.kind === "cluster"
+        ? clusterItems(entry.data).some((it) => it.region !== "MISC")
+        : entry.data.region !== "MISC"
+    ));
+    list = list.filter((entry) => HOT_SECTION_ORDER.includes(entryRadarSection(entry)));
   } else {
-    list = list.filter((it) => it.region === state.region);
+    list = list.filter((entry) => entryMatchesRegion(entry, state.region));
   }
 
-  if (state.contentType) {
-    list = list.filter((it) => it.content_type === state.contentType);
+  if (state.radarSection) {
+    list = list.filter((entry) => entryMatchesRadarSection(entry, state.radarSection));
   }
 
-  if (state.sourceType) {
-    list = list.filter((it) => sourceTypeOf(it) === state.sourceType);
+  if (state.sourceTier) {
+    list = list.filter((entry) => entryMatchesSourceTier(entry, state.sourceTier));
   }
 
   if (state.specificSource) {
-    list = list.filter((it) => it.site_id === state.specificSource);
+    list = list.filter((entry) => entryMatchesSpecificSource(entry, state.specificSource));
   }
 
-  if (state.dateFrom && state.dateTo) {
-    list = list.filter((it) => {
-      const t = itemEventTime(it);
-      return t && t >= state.dateFrom && t <= state.dateTo;
-    });
-  }
+  list = list.filter(entryMatchesDateRange);
 
   if (state.query) {
-    list = list.filter((it) => matchesQuery(it, state.query));
+    list = list.filter((entry) => matchesEntryQuery(entry, state.query));
   }
 
-  const noOtherFilters = !state.contentType && !state.sourceType && !state.specificSource
-    && !state.dateFrom && !state.query;
+  const noOtherFilters = !state.sourceTier && !state.specificSource
+    && !state.radarSection && !state.dateFrom && !state.query;
   if (noOtherFilters) {
-    // Default view (any region, no active filters): rank by signal score.
-    list = list.map((it) => ({ it, score: signalScore(it) }))
-      .sort((a, b) => b.score - a.score)
-      .slice(0, HOT_LIMIT)
-      .map(({ it }) => it);
+    if (usingHotView) {
+      list = list.slice(0, HOT_LIMIT);
+    } else {
+      list = list
+        .sort((a, b) => {
+          const aTime = entryEventTime(a);
+          const bTime = entryEventTime(b);
+          return (bTime ? bTime.getTime() : 0) - (aTime ? aTime.getTime() : 0);
+        })
+        .slice(0, HOT_LIMIT)
+    }
   }
 
   return list;
@@ -518,47 +639,78 @@ function currentList() {
 
 const KEY_SIGNALS_COUNT = 10;
 
+function currentFullFeedList() {
+  let list = state.items.map((it) => ({ kind: "item", data: it }));
+
+  if (state.region === "ALL") {
+    list = list.filter((entry) => entry.data.region !== "MISC");
+  } else {
+    list = list.filter((entry) => entryMatchesRegion(entry, state.region));
+  }
+
+  if (state.radarSection) {
+    list = list.filter((entry) => entryMatchesRadarSection(entry, state.radarSection));
+  }
+  if (state.sourceTier) {
+    list = list.filter((entry) => entryMatchesSourceTier(entry, state.sourceTier));
+  }
+  if (state.specificSource) {
+    list = list.filter((entry) => entryMatchesSpecificSource(entry, state.specificSource));
+  }
+
+  list = list.filter(entryMatchesDateRange);
+
+  if (state.query) {
+    list = list.filter((entry) => matchesEntryQuery(entry, state.query));
+  }
+
+  return list
+    .sort((a, b) => {
+      const aTime = entryEventTime(a);
+      const bTime = entryEventTime(b);
+      return (bTime ? bTime.getTime() : 0) - (aTime ? aTime.getTime() : 0);
+    })
+    .slice(0, HOT_LIMIT);
+}
+
 function render() {
   const body = document.getElementById("gamePanelBody");
   const keyPanel = document.getElementById("gameKeySignalsPanel");
   const keyBody = document.getElementById("gameKeySignalsBody");
   const list = currentList();
+  const fullFeedList = currentFullFeedList();
   const title = document.getElementById("gamePanelTitle");
   const eyebrow = document.getElementById("gamePanelEyebrow");
 
-  if (!list.length) {
-    keyPanel.hidden = true;
-    body.innerHTML = `<div class="empty-state">No game news matches this view yet.</div>`;
-    if (state.region === "ALL") {
-      title.textContent = "Top Game Signals";
-      eyebrow.textContent = "TOP SIGNALS · ranked by recency × source × event type";
-    } else {
-      title.textContent = `${REGION_LABELS[state.region]} Game Signals`;
-      eyebrow.textContent = `${REGION_LABELS[state.region].toUpperCase()} SIGNALS`;
+  if (state.region === "ALL") {
+    const hotHtml = renderHotSections(list);
+    keyPanel.hidden = !hotHtml;
+    keyBody.innerHTML = hotHtml;
+    body.innerHTML = fullFeedList.length
+      ? `<div class="game-item-list">${fullFeedList.map(renderEntry).join("")}</div>`
+      : `<div class="empty-state">No full-feed articles match this view yet.</div>`;
+    title.textContent = "Full Feed";
+    eyebrow.textContent = "FULL FEED";
+    if (!hotHtml && !fullFeedList.length) {
+      body.innerHTML = `<div class="empty-state">No game news matches this view yet.</div>`;
     }
     return;
   }
 
-  // Any region, no active filters: Key Signals panel + More Signals below
-  const isDefaultView = !state.contentType && !state.sourceType && !state.specificSource
-    && !state.dateFrom && !state.query;
+  if (!list.length) {
+    keyPanel.hidden = true;
+    body.innerHTML = `<div class="empty-state">No game news matches this view yet.</div>`;
+    title.textContent = `${REGION_LABELS[state.region]} Full Feed`;
+    eyebrow.textContent = `${REGION_LABELS[state.region].toUpperCase()} FEED`;
+    return;
+  }
 
   const regionLabel = state.region === "ALL" ? "" : `${REGION_LABELS[state.region]} `;
-
-  if (isDefaultView && list.length > KEY_SIGNALS_COUNT) {
-    const featured = list.slice(0, KEY_SIGNALS_COUNT);
-    const rest     = list.slice(KEY_SIGNALS_COUNT);
-    keyPanel.hidden = false;
-    keyBody.innerHTML = featured.map(renderFeaturedItem).join("");
-    body.innerHTML = `<div class="game-item-list">${rest.map(renderItem).join("")}</div>`;
-    title.textContent = `More ${regionLabel}Signals`;
-    eyebrow.textContent = `${regionLabel.toUpperCase().trim() || "FULL"} FEED`;
-  } else {
-    keyPanel.hidden = true;
-    body.innerHTML = `<div class="game-item-list">${list.map(renderItem).join("")}</div>`;
-    title.textContent = `${regionLabel}Game Signals`;
-    eyebrow.textContent = `${regionLabel.toUpperCase().trim() || "TOP"} SIGNALS`;
-  }
+  keyPanel.hidden = true;
+  keyBody.innerHTML = "";
+  body.innerHTML = `<div class="game-item-list">${list.map(renderEntry).join("")}</div>`;
+  title.textContent = `${regionLabel}Full Feed`;
+  eyebrow.textContent = `${regionLabel.toUpperCase().trim()} FEED`;
 }
 
 function updateTabCounts() {
@@ -606,13 +758,13 @@ function wireControls() {
     setRegion(evt.target.value);
   });
 
-  document.getElementById("gameContentTypeSelect").addEventListener("change", (evt) => {
-    state.contentType = evt.target.value;
+  document.getElementById("gameRadarSectionSelect").addEventListener("change", (evt) => {
+    state.radarSection = evt.target.value;
     render();
   });
 
-  document.getElementById("gameSourceTypeSelect").addEventListener("change", (evt) => {
-    state.sourceType = evt.target.value;
+  document.getElementById("gameSourceTierSelect").addEventListener("change", (evt) => {
+    state.sourceTier = evt.target.value;
     render();
   });
 
@@ -645,6 +797,27 @@ async function fetchJson(url) {
   return res.json();
 }
 
+function isLocalPreview() {
+  return LOCAL_PREVIEW_HOSTS.has(window.location.hostname);
+}
+
+async function fetchGameNewsData() {
+  const localPreview = isLocalPreview();
+  const primaryUrl = isLocalPreview() ? FALLBACK_DATA_URL : LIVE_DATA_URL;
+  const fallbackUrl = isLocalPreview() ? LIVE_DATA_URL : FALLBACK_DATA_URL;
+  try {
+    const data = await fetchJson(primaryUrl);
+    return { data, live: primaryUrl === LIVE_DATA_URL, localPreview, usedFallback: false, primaryErr: null };
+  } catch (primaryErr) {
+    try {
+      const data = await fetchJson(fallbackUrl);
+      return { data, live: fallbackUrl === LIVE_DATA_URL, localPreview, usedFallback: true, primaryErr };
+    } catch (fallbackErr) {
+      throw { primaryErr, fallbackErr };
+    }
+  }
+}
+
 function renderSourceHealth(sourceHealth) {
   const el = document.getElementById("gameSourceHealthTable");
   if (!el) return;
@@ -669,21 +842,20 @@ async function init() {
   wireControls();
   let data;
   let live = true;
+  let localPreview = false;
+  let usedFallback = false;
   try {
-    data = await fetchJson(LIVE_DATA_URL);
-  } catch (liveErr) {
-    live = false;
-    try {
-      data = await fetchJson(FALLBACK_DATA_URL);
-    } catch (fallbackErr) {
-      document.getElementById("gamePanelBody").innerHTML =
-        `<div class="empty-state">Could not load game news data (live: ${escapeHtml(liveErr.message)}; fallback: ${escapeHtml(fallbackErr.message)}).</div>`;
-      document.getElementById("gameStatusPill").textContent = "Load failed";
-      return;
-    }
+    ({ data, live, localPreview, usedFallback } = await fetchGameNewsData());
+  } catch (err) {
+    document.getElementById("gamePanelBody").innerHTML =
+      `<div class="empty-state">Could not load game news data (primary: ${escapeHtml(err.primaryErr?.message)}; fallback: ${escapeHtml(err.fallbackErr?.message)}).</div>`;
+    document.getElementById("gameStatusPill").textContent = "Load failed";
+    return;
   }
 
   state.items = data.items || [];
+  state.hotItems = data.hot_news || [];
+  state.clusters = data.game_story_clusters || [];
   state.byRegion = data.by_region || {};
 
   const sourceCount = new Set(state.items.map((it) => it.site_id)).size;
@@ -700,7 +872,13 @@ async function init() {
   const pill = document.getElementById("gameStatusPill");
   const health = data.source_health;
   const advancedSummary = document.getElementById("gameAdvancedSummary");
-  if (live && health) {
+  if (localPreview && !live) {
+    pill.textContent = "Local preview data";
+    pill.classList.remove("warn");
+    advancedSummary.textContent = health
+      ? `Local preview data · ${health.ok_count}/${health.total_count} sources healthy`
+      : "Local preview data";
+  } else if (live && health) {
     pill.textContent = `${health.ok_count}/${health.total_count} sources healthy`;
     pill.classList.toggle("warn", health.ok_count < health.total_count);
     advancedSummary.textContent = `Live · ${health.ok_count}/${health.total_count} sources healthy`;
@@ -709,9 +887,9 @@ async function init() {
     pill.classList.remove("warn");
     advancedSummary.textContent = "Live";
   } else {
-    pill.textContent = "Historical backfill (live branch unreachable)";
+    pill.textContent = usedFallback ? "Fallback data (live branch unreachable)" : "Fallback data";
     pill.classList.add("warn");
-    advancedSummary.textContent = "Historical backfill, live branch unreachable";
+    advancedSummary.textContent = usedFallback ? "Fallback data, live branch unreachable" : "Fallback data";
   }
   renderSourceHealth(health);
   populateSpecificSourceOptions();
@@ -722,7 +900,7 @@ async function init() {
   // Load Sensor Tower rank index in the background — non-blocking.
   // First render uses Phase 1 scores only; re-renders with ST bonus once loaded.
   // Fails silently if the file is missing (e.g. fresh clone without the data/).
-  fetchJson(ST_RANK_URL)
+  false && fetchJson(ST_RANK_URL)
     .then((rankData) => {
       const stEntries = buildStIndex(rankData);
       state.stBonus = precomputeStBonuses(state.items, stEntries);

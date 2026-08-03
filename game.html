@@ -150,36 +150,30 @@
               </select>
             </label>
             <label class="field">
-              <span>Content type</span>
-              <select id="gameContentTypeSelect">
-                <option value="">All game news</option>
-                <option value="launch">Launches / releases</option>
-                <option value="update">Updates / patches</option>
-                <option value="business">Studio / business</option>
-                <option value="platform">Platform / store</option>
-                <option value="esports">Esports</option>
-                <option value="general">General / uncategorized</option>
+              <span>Radar section</span>
+              <select id="gameRadarSectionSelect">
+                <option value="">All sections</option>
+                <option value="industry_reports">Industry reports</option>
+                <option value="game_releases">Game releases</option>
+                <option value="game_announcements">Game announcements</option>
+                <option value="other">Other</option>
               </select>
             </label>
             <label class="field">
-              <span>Source type</span>
-              <select id="gameSourceTypeSelect">
+              <span>Source tier</span>
+              <select id="gameSourceTierSelect">
                 <option value="">All sources</option>
-                <option value="dedicated_game_media">Dedicated game media</option>
-                <option value="tech_portal">Tech / lifestyle portal</option>
-                <option value="aggregator">Aggregator</option>
+                <option value="major_gaming_media">Major gaming media</option>
+                <option value="regional_gaming_media">Regional gaming media</option>
+                <option value="business_industry_media">Business / industry media</option>
+                <option value="aggregator">Aggregators</option>
+                <option value="mixed_portal">Mixed portals</option>
               </select>
             </label>
             <label class="field">
               <span>Specific source</span>
               <select id="gameSpecificSourceSelect">
                 <option value="">All sites</option>
-              </select>
-            </label>
-            <label class="field">
-              <span>Signal level</span>
-              <select disabled aria-label="Signal level (not available yet)">
-                <option value="">Coming with story-merge (not built yet)</option>
               </select>
             </label>
           </div>
@@ -197,8 +191,8 @@
 
       <section class="panel game-key-panel" id="gameKeySignalsPanel" hidden>
         <div class="panel-head">
-          <p class="eyebrow">KEY SIGNALS · ranked by recency × source × event type × ST revenue rank</p>
-          <h2>Today's Top Signals</h2>
+          <p class="eyebrow">HOT STORIES · backend-ranked clusters first</p>
+          <h2>Hot Game Stories</h2>
         </div>
         <div id="gameKeySignalsBody"></div>
       </section>
@@ -206,8 +200,8 @@
       <section class="panel">
         <div class="panel-head">
           <div>
-            <p class="eyebrow" id="gamePanelEyebrow">TOP SIGNALS</p>
-            <h2 id="gamePanelTitle">Top Game Signals</h2>
+            <p class="eyebrow" id="gamePanelEyebrow">HOT STORIES</p>
+            <h2 id="gamePanelTitle">Hot Game Stories</h2>
           </div>
         </div>
         <div id="gamePanelBody">

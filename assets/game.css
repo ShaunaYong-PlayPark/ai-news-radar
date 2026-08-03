@@ -318,6 +318,37 @@ summary:focus-visible {
   background: linear-gradient(135deg, rgba(29, 78, 216, 0.07) 0%, var(--surface-soft) 100%);
 }
 
+.game-hot-section {
+  padding: 10px 6px 12px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.game-hot-section:last-child {
+  border-bottom: 0;
+}
+
+.game-hot-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 2px 10px 10px;
+}
+
+.game-hot-section-head h3 {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.game-hot-section-head span {
+  flex: none;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted-soft);
+}
+
 /* "Why it matters" explanation line inside each featured card */
 .game-key-why {
   font-size: 12px;
@@ -338,6 +369,44 @@ summary:focus-visible {
   color: #15803d;
   background: rgba(22, 163, 74, 0.09);
   border: 1px solid rgba(22, 163, 74, 0.22);
+}
+
+.game-source-tier,
+.game-score-badge,
+.game-cluster-game {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 1px 8px;
+  font-weight: 700;
+  font-size: 11px;
+  color: #334155;
+  background: rgba(51, 65, 85, 0.08);
+  border: 1px solid rgba(51, 65, 85, 0.14);
+}
+
+.game-score-badge {
+  color: #0f766e;
+  background: rgba(15, 118, 110, 0.08);
+  border-color: rgba(15, 118, 110, 0.18);
+}
+
+.game-cluster-card {
+  border-color: rgba(15, 118, 110, 0.2);
+  background: rgba(15, 118, 110, 0.06);
+}
+
+.game-cluster-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 6px;
+  align-items: center;
+}
+
+.game-cluster-sources {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--muted);
 }
 
 /* ── Source health table ─────────────────────────────────────────── */
