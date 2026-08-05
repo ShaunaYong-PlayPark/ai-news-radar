@@ -174,8 +174,13 @@ BUSINESS_INDUSTRY_SOURCE_IDS = {
     "pocketgamerbiz",
     "mobilegamer_biz",
     "virtuos_games",
+    "vnexpress_business",
+    "bangkokpost_business",
 }
-BUSINESS_INDUSTRY_SOURCE_RE = re.compile(r"gamesindustry\.biz|pocketgamer\.biz|mobilegamer\.biz|gameindustry|virtuos", re.I)
+BUSINESS_INDUSTRY_SOURCE_RE = re.compile(
+    r"gamesindustry\.biz|pocketgamer\.biz|mobilegamer\.biz|gameindustry|virtuos|vnexpress business|bangkok post business",
+    re.I,
+)
 
 
 def fetch_rss_source(session: requests.Session, source: dict[str, Any], now: datetime) -> list[RawItem]:

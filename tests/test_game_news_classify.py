@@ -64,6 +64,67 @@ def test_mixed_sources_need_real_game_signal():
     assert not is_junk(rec("PUBG Mobile opens pre-registration in Vietnam", dedicated=False, source="GameK"))
 
 
+def test_sea_mixed_business_sources_keep_gaming_company_signals():
+    assert not is_junk(
+        rec(
+            "VNG invests in a new mobile game studio in Vietnam",
+            dedicated=False,
+            source="VnExpress Business",
+        )
+    )
+    assert section(
+        "VNG invests in a new mobile game studio in Vietnam",
+        dedicated=False,
+        source="VnExpress Business",
+    ) == "industry_reports"
+    assert not is_junk(
+        rec(
+            "Garena targets Thailand for gaming investment",
+            dedicated=False,
+            source="Bangkok Post Business",
+        )
+    )
+    assert section(
+        "Garena targets Thailand for gaming investment",
+        dedicated=False,
+        source="Bangkok Post Business",
+    ) == "industry_reports"
+
+
+def test_broad_platform_companies_still_need_gaming_context_in_mixed_sources():
+    assert is_junk(
+        rec(
+            "Sony reports higher quarterly revenue",
+            dedicated=False,
+            source="VnExpress Business",
+        )
+    )
+    assert not is_junk(
+        rec(
+            "Sony expands PlayStation gaming investment in Vietnam",
+            dedicated=False,
+            source="VnExpress Business",
+        )
+    )
+    assert section(
+        "Sony expands PlayStation gaming investment in Vietnam",
+        dedicated=False,
+        source="VnExpress Business",
+    ) == "industry_reports"
+
+
+def test_sea_business_sources_are_registered_without_duplicates():
+    from scripts.game_sources import DIRECT_RSS_SOURCES
+
+    ids = [source["site_id"] for source in DIRECT_RSS_SOURCES]
+    assert ids.count("gamingonphone") == 1
+    assert ids.count("gamek_vn") == 1
+    assert ids.count("vnexpress_business") == 1
+    assert ids.count("bangkokpost_business") == 1
+    assert next(source for source in DIRECT_RSS_SOURCES if source["site_id"] == "vnexpress_business")["dedicated"] is False
+    assert next(source for source in DIRECT_RSS_SOURCES if source["site_id"] == "bangkokpost_business")["dedicated"] is False
+
+
 def test_reviews_drop_unless_they_are_release_news():
     assert is_junk(rec("Review: Granblue Fantasy Relink Endless Ragnarok DLC"))
     assert not is_junk(rec("Dragon Quest remake launches on Switch after new reviews go live"))

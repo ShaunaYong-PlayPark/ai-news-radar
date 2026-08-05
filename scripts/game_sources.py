@@ -896,6 +896,26 @@ DIRECT_RSS_SOURCES: list[dict[str, Any]] = [
         "language": "en",
         "verified": "2026-07-30",
     },
+    # SEA mixed business feeds. Keep these non-dedicated and let the game
+    # business gate retain only gaming-company and gaming-market signals.
+    {
+        "site_id": "vnexpress_business",
+        "site_name": "VnExpress Business",
+        "feed_url": "https://vnexpress.net/rss/kinh-doanh.rss",
+        "region": "VN",
+        "dedicated": False,
+        "language": "vi",
+        "verified": "2026-08-05",
+    },
+    {
+        "site_id": "bangkokpost_business",
+        "site_name": "Bangkok Post Business",
+        "feed_url": "https://www.bangkokpost.com/rss/data/business.xml",
+        "region": "TH",
+        "dedicated": False,
+        "language": "en",
+        "verified": "2026-08-05",
+    },
     {
         "site_id": "youyanshe",
         "site_name": "YouYanShe",

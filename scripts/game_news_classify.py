@@ -170,11 +170,24 @@ MARKET_NEWS_RE = re.compile(
     re.I,
 )
 SOURCE_GAME_RE = re.compile(r"game|gaming|esport|rpg|playstation|xbox|nintendo|steam", re.I)
+GAMING_BUSINESS_TERM_RE = re.compile(
+    r"game|gaming|mobile game|online game|video game|esports?|e-sports|game publisher|game studio|"
+    r"game developer|app store|google play|in-app purchase|digital entertainment|interactive entertainment",
+    re.I,
+)
+STRONG_GAMING_COMPANY_RE = re.compile(
+    r"\bvng\b|garena|sea group|tencent|riot games|hoyoverse|mihoyo|netease|netmarble|nexon|ncsoft|"
+    r"bandai namco|krafton|gravity|com2us|pearl abyss|kakao games|smilegate|activision blizzard|"
+    r"electronic arts|\bea\b|ubisoft|take[- ]two|rockstar|valve|epic games|unity|roblox|"
+    r"square enix|capcom|sega|konami|koei tecmo|shift up|webzen|yostar",
+    re.I,
+)
+BROAD_GAMING_COMPANY_RE = re.compile(
+    r"sony|playstation|microsoft|microsoft gaming|xbox|nintendo",
+    re.I,
+)
 GAME_BUSINESS_RE = re.compile(
-    r"game studio|game developer|developer|publisher|riot|sony interactive|nintendo|sega|square enix|"
-    r"nexon|netease|tencent|hoyoverse|mihoyo|krafton|garena|ubisoft|electronic arts|\bea\b|"
-    r"activision|blizzard|take[- ]two|rockstar|valve|epic games|unity|roblox|bandai namco|"
-    r"capcom|konami|koei tecmo|ncsoft|smilegate|shift up|pearl abyss|kakao games|webzen|com2us|yostar",
+    GAMING_BUSINESS_TERM_RE.pattern + r"|" + STRONG_GAMING_COMPANY_RE.pattern + r"|" + BROAD_GAMING_COMPANY_RE.pattern,
     re.I,
 )
 FINANCE_ONLY_RE = re.compile(
@@ -468,7 +481,7 @@ RADAR_GAME_CONTEXT_RE = re.compile(
     re.I,
 )
 RADAR_CLEAR_INDUSTRY_RE = re.compile(
-    r"earnings|revenue|\blayoffs?\b|acquisition|acquires?|merger|funding|investment|market report|sales data|"
+    r"earnings|revenue|\blayoffs?\b|acquisition|acquires?|merger|funding|invest(?:s|ed|ing|ment)?|market report|sales data|"
     r"user spending|\bmau\b|\bdau\b|platform policy|store policy|physical games?|physical copies|"
     r"disc production|game pass|subscription|pricing|distribution|ownership|publisher strategy|"
     r"studio closure|cancell?ation|newzoo|top-grossing|pre-orders? generate|sales milestone|"
@@ -534,7 +547,14 @@ def is_junk(record: dict[str, Any]) -> bool:
         TITLE_GAME_RE.search(title) or BROAD_GAME_RE.search(title) or VIDEO_GAME_SIGNAL_RE.search(title)
     )
     has_source_game_signal = bool(SOURCE_GAME_RE.search(source))
-    has_market_game_signal = has_market_news and (has_title_game_signal or bool(GAME_BUSINESS_RE.search(title)))
+    has_strong_company_signal = bool(STRONG_GAMING_COMPANY_RE.search(title))
+    has_broad_company_signal = bool(BROAD_GAMING_COMPANY_RE.search(title))
+    has_gaming_business_signal = bool(GAMING_BUSINESS_TERM_RE.search(title))
+    has_market_game_signal = has_market_news and (
+        has_title_game_signal
+        or has_strong_company_signal
+        or (has_broad_company_signal and has_gaming_business_signal)
+    )
     has_generic_finance = bool(FINANCE_ONLY_RE.search(title)) and not has_market_game_signal
 
     if MISC_PATTERN.search(title):
@@ -586,7 +606,19 @@ def is_junk(record: dict[str, Any]) -> bool:
     if record.get("source_dedicated"):
         # Dedicated feeds still carry finance, reviews, and community fluff.
         return has_generic_finance
-    if not (has_title_game_signal or (has_market_news and has_source_game_signal and not has_generic_finance)):
+    if not (
+        has_title_game_signal
+        or (
+            has_market_news
+            and not has_generic_finance
+            and (
+                has_source_game_signal
+                or has_strong_company_signal
+                or (has_broad_company_signal and has_gaming_business_signal)
+                or has_gaming_business_signal
+            )
+        )
+    ):
         return True  # only matched via source/handle text, e.g. a "...Gamer..." username
     return False
 

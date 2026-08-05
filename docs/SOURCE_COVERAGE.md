@@ -61,6 +61,23 @@ Add a source only when it passes most of these checks:
 - Can be fetched politely by GitHub Actions without heavy rate limits.
 - Adds coverage not already represented by stronger sources.
 
+## SEA Gaming Business Coverage
+
+- **VnExpress Business** (`vnexpress_business`) uses the validated
+  `https://vnexpress.net/rss/kinh-doanh.rss` feed as a mixed Vietnam business
+  source. The classifier keeps only gaming-company or gaming-business signals,
+  including VNG, Garena, Sea Group, publishers, stores, and game investment or
+  expansion stories.
+- **Bangkok Post Business** (`bangkokpost_business`) uses the validated
+  `https://www.bangkokpost.com/rss/data/business.xml` feed as a mixed Thailand
+  business source with the same gaming relevance gate.
+- **AFKMobi** is not in the built-in registry because the checked `/feed/`
+  endpoint returned HTML rather than RSS, and no reliable RSSHub route was
+  validated. Revisit it only with a maintained scraper or a validated feed.
+- **Doanh Nhan VN** is not in the built-in registry because the checked site and
+  common feed paths exposed HTML but no reliable RSS/Atom route. Keep it as a
+  scraper candidate until a stable feed is available.
+
 ## Built-In Official Nodes
 
 The public site should directly track these high-signal official sources:
