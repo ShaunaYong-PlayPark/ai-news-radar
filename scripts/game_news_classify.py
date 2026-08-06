@@ -677,16 +677,147 @@ def classify_radar_section(record: dict[str, Any]) -> str:
     has_esports = bool(RADAR_ESPORTS_RE.search(blob))
     engine_is_subject = bool(re.match(r"\s*(?:unity|unreal engine|epic)\b", blob, re.I))
 
+    has_non_playable_release_object = bool(
+        re.search(
+            r"\b(?:"
+            r"song|theme song|collaboration song|anthem|soundtrack|ost|album|single|"
+            r"music video|trailer|teaser|cinematic|poster|key visual|art book|"
+            r"anime episode|episode|film|documentary|"
+            r"tournament schedule|match schedule|event schedule|roster|lineup|"
+            r"bracket|standings|results|financial report"
+            r")\b",
+            blob,
+            re.I,
+        )
+    )
+
+    has_media_distribution_context = bool(
+        re.search(
+            r"\b(?:"
+            r"spotify|apple music|youtube music|nintendo music|amazon music|"
+            r"soundcloud|available to stream|now streaming|listen now"
+            r")\b",
+            blob,
+            re.I,
+        )
+    )
+
+    has_hypothetical_release = bool(
+        re.search(
+            r"\b(?:"
+            r"if (?:it|they|the game|the console) (?:launched|released)|"
+            r"would (?:launch|release|cost)|"
+            r"could (?:launch|release)|"
+            r"might (?:launch|release)|"
+            r"should (?:launch|release)|"
+            r"what if|if released today|if launched today"
+            r")\b",
+            blob,
+            re.I,
+        )
+    )
+
+    has_subscription_catalog_context = bool(
+        re.search(
+            r"\b(?:"
+            r"playstation plus|ps plus|xbox game pass|game pass|prime gaming|"
+            r"epic games store free games|nintendo switch online|"
+            r"monthly games|free games for|catalog additions|available to subscribers"
+            r")\b",
+            blob,
+            re.I,
+        )
+    )
+
+    has_subscription_business_change = bool(
+        re.search(
+            r"\b(?:"
+            r"pricing|price increase|price hike|subscription policy|"
+            r"policy change|subscription strategy|subscription tier|"
+            r"subscription plan"
+            r")\b",
+            blob,
+            re.I,
+        )
+    )
+
+    has_prelaunch_activity = bool(
+        re.search(
+            r"\b(?:"
+            r"pre-registration|preregistration|pre-register|preorder|pre-order|"
+            r"alpha test|closed alpha|open alpha|"
+            r"beta test|closed beta|open beta|technical test|network test|"
+            r"soft launch|launch date|release date|launch window|release window|"
+            r"postpones?|postponed|delays?|delayed|cancelled|canceled"
+            r")\b",
+            blob,
+            re.I,
+        )
+    )
+
+    has_concrete_test_timing = bool(
+        re.search(
+            r"\b(?:"
+            r"january|february|march|april|may|june|july|august|"
+            r"september|october|november|december|"
+            r"\d{1,2}\s+(?:january|february|march|april|may|june|july|august|"
+            r"september|october|november|december)|"
+            r"(?:january|february|march|april|may|june|july|august|"
+            r"september|october|november|december)\s+\d{1,2}"
+            r")\b",
+            blob,
+            re.I,
+        )
+    )
+
+    has_completed_playable_release = bool(
+        re.search(
+            r"\b(?:"
+            r"officially launches today|officially launched|has officially launched|"
+            r"is now available|are now available|now available on|"
+            r"now live|servers? (?:are|is) now live|"
+            r"launches today|released today|out now"
+            r")\b",
+            blob,
+            re.I,
+        )
+    )
+
+        # A release word does not mean the playable game itself was released.
+    if (
+        has_non_playable_release_object or has_media_distribution_context
+    ) and not has_prelaunch_activity and not has_future_release:
+        return "other"
+
+    # Hypothetical, counterfactual, and opinion-style launch wording is not
+    # evidence of a real release event.
+    if has_hypothetical_release:
+        return "other"
+
+    # Subscription-library and monthly free-game availability is not a new
+    # game release.
+    if (
+        has_subscription_catalog_context
+        and not has_subscription_business_change
+    ):
+        return "other"
+
     if is_speculative and not has_strong_industry:
         return "other"
     if is_weak and not has_industry and not has_strong_industry and not has_release:
         return "other"
     if PATCH_UPDATE_NOTE_RE.search(blob):
         return "other"
-    if HOT_CLOSED_TEST_RE.search(blob) and (
-        HOT_CLOSED_TEST_NO_DATE_RE.search(blob)
-        or not re.search(
-        r"full release|release date|launch(?:es|ed|ing)?|coming to|early access", blob, re.I
+    if (
+        HOT_CLOSED_TEST_RE.search(blob)
+        and not has_concrete_test_timing
+        and (
+            HOT_CLOSED_TEST_NO_DATE_RE.search(blob)
+            or not re.search(
+                r"full release|release date|launch(?:es|ed|ing)?|coming to|early access",
+                blob,
+                re.I,
+            )
         )
     ):
         return "other"
@@ -744,9 +875,16 @@ def classify_radar_section(record: dict[str, Any]) -> str:
         and not engine_is_subject
     ):
         return "industry_reports"
+    if has_prelaunch_activity and not has_accessory_noise and has_game_context:
+        return "game_announcements"
+
     if RADAR_PREORDER_RE.search(blob) and not has_accessory_noise and has_game_context:
         return "game_announcements"
-    if (RADAR_CURRENT_RELEASE_RE.search(blob) or RADAR_STANDALONE_RELEASE_RE.search(blob)) and not has_accessory_noise and has_game_context:
+    if (
+        has_completed_playable_release
+        or RADAR_CURRENT_RELEASE_RE.search(blob)
+        or RADAR_STANDALONE_RELEASE_RE.search(blob)
+    ) and not has_accessory_noise and has_game_context:
         return "game_releases"
     if has_future_release and not has_accessory_noise and has_game_context:
         return "game_announcements"

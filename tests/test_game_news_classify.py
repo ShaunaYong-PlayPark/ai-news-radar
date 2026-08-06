@@ -440,3 +440,78 @@ def test_radar_section_game_announcements():
 def test_radar_section_added_by_classify_and_tag():
     tagged = classify_and_tag(rec("Action RPG launches on Steam"))
     assert tagged["radar_section"] == "game_releases"
+
+
+def test_non_game_objects_are_not_classified_as_game_releases():
+    titles = (
+        "VALORANT VCT Pacific, Audrey's sister collaboration song 'superHuman' released on the 7th",
+        "Fire Emblem: Fortune's Weave Special Release album now available to stream on Nintendo Music",
+        "Final Fantasy soundtrack released on Spotify",
+        "New RPG launch trailer released today",
+        "VCT Pacific tournament schedule released",
+    )
+
+    for title in titles:
+        assert section(title) == "other"
+
+
+def test_hypothetical_launch_language_is_not_a_game_release():
+    titles = (
+        "I figured out how much each Nintendo handheld would cost if it launched today",
+        "What if GTA VI launched on mobile?",
+        "How much the original PlayStation would cost if released today",
+        "This RPG could launch in 2027",
+    )
+
+    for title in titles:
+        assert section(title) == "other"
+
+
+def test_subscription_catalog_availability_is_not_a_game_release():
+    titles = (
+        "PlayStation Plus Free Games For August 2026 Out Now",
+        "Xbox Game Pass August additions are available now",
+        "Prime Gaming free games for August are out now",
+        "Nintendo Switch Online adds three classic games",
+    )
+
+    for title in titles:
+        assert section(title) == "other"
+
+
+def test_confirmed_future_launch_dates_are_game_announcements():
+    titles = (
+        "God of War Laufey sets an official launch date",
+        "The official launch date of EA FC 27 is confirmed",
+        "Mobile RPG confirms its Southeast Asia release date",
+        "New MMORPG launches on October 21",
+    )
+
+    for title in titles:
+        assert section(title) == "game_announcements"
+
+
+def test_prelaunch_activity_is_classified_as_game_announcements():
+    titles = (
+        "Mobile MMORPG opens pre-registration in Southeast Asia",
+        "New RPG announces a closed beta test for September",
+        "Online game begins open beta next month",
+        "Action RPG announces an alpha test",
+        "Mobile game begins soft launch in Thailand next month",
+        "Upcoming RPG postpones its launch until 2027",
+    )
+
+    for title in titles:
+        assert section(title) == "game_announcements"
+
+
+def test_already_playable_games_are_classified_as_game_releases():
+    titles = (
+        "Mobile RPG officially launches today",
+        "New MMORPG is now available on Android and iOS",
+        "Action RPG has officially launched on Steam",
+        "Online game servers are now live in Southeast Asia",
+    )
+
+    for title in titles:
+        assert section(title) == "game_releases"
