@@ -48,3 +48,4 @@ data/game-news-state.json
 # Local coding-agent settings (Claude Code, Codex, etc.)
 .claude/settings.local.json
 .codex/
+work/
