@@ -886,9 +886,23 @@ summary:focus-visible {
   background: var(--surface);
 }
 
+.source-health-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  align-items: baseline;
+  padding: 0 0 10px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.source-health-meta strong {
+  color: var(--ink-soft);
+}
+
 .source-table-row {
   display: grid;
-  grid-template-columns: minmax(160px, 1.4fr) minmax(96px, 0.8fr) minmax(64px, 0.5fr) minmax(56px, 0.4fr);
+  grid-template-columns: minmax(160px, 1.4fr) minmax(72px, 0.5fr) minmax(64px, 0.5fr) minmax(180px, 2fr);
   gap: 10px;
   align-items: center;
   border-top: 1px solid var(--line-soft);
@@ -922,6 +936,11 @@ summary:focus-visible {
 .source-table-row .bad {
   color: var(--bad);
   font-weight: 760;
+}
+
+.source-failure-reason {
+  white-space: normal !important;
+  overflow-wrap: anywhere;
 }
 
 .site-pills {

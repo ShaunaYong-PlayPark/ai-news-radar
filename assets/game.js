@@ -818,7 +818,13 @@ async function fetchGameNewsData() {
   }
 }
 
-function renderSourceHealth(sourceHealth) {
+function formatRefreshDateTime(iso) {
+  const d = iso ? new Date(iso) : null;
+  if (!d || Number.isNaN(d.getTime())) return "Unknown";
+  return `${String(d.getUTCDate()).padStart(2, "0")}-${MONTH_ABBR[d.getUTCMonth()]}-${d.getUTCFullYear()} ${String(d.getUTCHours()).padStart(2, "0")}:${String(d.getUTCMinutes()).padStart(2, "0")} UTC`;
+}
+
+function renderSourceHealth(sourceHealth, generatedAt) {
   const el = document.getElementById("gameSourceHealthTable");
   if (!el) return;
   if (!sourceHealth || !Array.isArray(sourceHealth.sources) || !sourceHealth.sources.length) {
@@ -827,13 +833,14 @@ function renderSourceHealth(sourceHealth) {
   }
   const rows = [...sourceHealth.sources].sort((a, b) => (b.ok - a.ok) || b.item_count - a.item_count);
   el.innerHTML = [
-    `<div class="source-table-row source-table-head"><span>Source</span><span>Items</span><span>Duration</span><span>Status</span></div>`,
+    `<div class="source-health-meta"><strong>Last refreshed</strong><span>${formatRefreshDateTime(generatedAt)}</span><strong>Healthy sources</strong><span>${sourceHealth.ok_count}/${sourceHealth.total_count}</span></div>`,
+    `<div class="source-table-row source-table-head"><span>Source</span><span>Items</span><span>Status</span><span>Failure reason</span></div>`,
     ...rows.map((s) => `
       <div class="source-table-row">
         <span>${escapeHtml(s.site_name || s.site_id)}</span>
         <span>${(s.item_count || 0).toLocaleString()}</span>
-        <span>${s.duration_ms ? `${s.duration_ms}ms` : "-"}</span>
         <span class="${s.ok ? "ok" : "bad"}">${s.ok ? "Healthy" : "Failed"}</span>
+        <span class="source-failure-reason">${escapeHtml(s.ok ? "-" : (s.error || "Unknown failure"))}</span>
       </div>`),
   ].join("");
 }
@@ -891,7 +898,7 @@ async function init() {
     pill.classList.add("warn");
     advancedSummary.textContent = usedFallback ? "Fallback data, live branch unreachable" : "Fallback data";
   }
-  renderSourceHealth(health);
+  renderSourceHealth(health, data.generated_at);
   populateSpecificSourceOptions();
 
   updateTabCounts();

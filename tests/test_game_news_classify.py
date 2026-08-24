@@ -20,8 +20,20 @@ def test_drops_guides_codes_and_builds_even_from_dedicated_sources():
     assert is_junk(rec("How to unlock MOMO in Xenoblade Chronicles 2"))
 
 
-def test_keeps_launch_guide_when_release_state_is_present():
-    assert not is_junk(rec("Digimon Up Launch Guide: Release Date, Rewards & More"))
+def test_drops_guides_even_when_release_state_is_present():
+    assert is_junk(rec("Digimon Up Launch Guide: Release Date, Rewards & More"))
+
+
+def test_drops_public_radar_excluded_content_formats():
+    for title in (
+        "Avengers action figures revealed for collectors",
+        "Halo Infinite how-to guide for new players",
+        "Nintendo Switch consumer deals and bundles this week",
+        "GTA 6 gameplay leak reveals new footage",
+        "Cyberpunk: Edgerunners 2 gets an anime release date",
+        "PlayStation deletes movies customers paid for",
+    ):
+        assert is_junk(rec(title))
 
 
 def test_drops_routine_live_ops_but_keeps_lifecycle_news():

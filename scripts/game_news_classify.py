@@ -103,6 +103,17 @@ UTILITY_GUIDE_RE = re.compile(
     re.I,
 )
 
+# These formats are never suitable for the public radar, even when a title
+# also contains a game, platform, or release keyword.  The radar keeps only
+# release/announcement/industry/company news, so market-language exceptions
+# must not re-admit consumer content, leaks, or utility articles.
+PUBLIC_CONTENT_EXCLUSION_RE = re.compile(
+    r"\bhow[- ]to\b|\bguide(?:s)?\b|walkthrough|\bdeal(?:s)?\b|\bbundle(?:s)?\b|"
+    r"\bleak(?:s|ed|ing)?\b|\baction figures?\b|\b(?:toy|toys|figurine|figurines|merch|merchandise)\b|"
+    r"\btrophy leaks?\b",
+    re.I,
+)
+
 ROUTINE_LIVEOPS_RE = re.compile(
     r"\bdlc\b|expansion|new costume|costumes?|new skin|skins?|banner|season pass|battle pass|"
     r"new character|new weapon|new map|patch notes?|hotfix|balance (?:change|changes|patch)|"
@@ -147,6 +158,12 @@ NON_GAME_IP_RE = re.compile(
 VIDEO_GAME_SIGNAL_RE = re.compile(
     r"video game|mobile game|console game|pc game|rpg|jrpg|gacha|steam|playstation|\bps5\b|\bps4\b|"
     r"xbox|nintendo|switch|app store|google play|ios|android",
+    re.I,
+)
+
+EXPLICIT_GAME_CONTEXT_RE = re.compile(
+    r"\b(?:game|games|gaming|gameplay|video game|mobile game|console game|pc game|rpg|jrpg|gacha|"
+    r"esports?|e-sports?)\b",
     re.I,
 )
 
@@ -559,6 +576,8 @@ def is_junk(record: dict[str, Any]) -> bool:
 
     if MISC_PATTERN.search(title):
         return True
+    if PUBLIC_CONTENT_EXCLUSION_RE.search(title):
+        return True
     if IDIOMATIC_GAME_RE.search(title) and not REAL_GAME_LIFECYCLE_RE.search(title):
         return True
     if FINANCE_ONLY_GAMESTOP_EBAY_RE.search(title):
@@ -599,9 +618,7 @@ def is_junk(record: dict[str, Any]) -> bool:
         return True
     if re.search(r"card game", title, re.I) and not (VIDEO_GAME_SIGNAL_RE.search(title) or has_market_news):
         return True
-    if (NON_GAME_IP_RE.search(title) or ANIME_IP_RE.search(title)) and not (
-        VIDEO_GAME_SIGNAL_RE.search(title) or has_market_news
-    ):
+    if (NON_GAME_IP_RE.search(title) or ANIME_IP_RE.search(title)) and not EXPLICIT_GAME_CONTEXT_RE.search(title):
         return True
     if record.get("source_dedicated"):
         # Dedicated feeds still carry finance, reviews, and community fluff.
